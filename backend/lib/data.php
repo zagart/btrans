@@ -41,6 +41,11 @@ function filterData(
 		$highTime, 
 		$error
 	);
+//	echo "Start points:<br/>";
+//	printArray($startPoints);
+//	echo "End points:<br/>";
+//	printArray($endPoints);
+//	echo "<hr/>";
 	return generateDirections($startPoints, $endPoints);
 }
 
@@ -53,8 +58,8 @@ function getApproximatePoints(
 {	
 	$selectedPoints = array();
 	foreach ($data as $point) {
-		if ($point -> t > $lowTime && $point -> t < $highTime) {
-			if (isSoughtPoint($point, $fixedPoint, $error)) {		
+		if ($point -> t >= $lowTime && $point -> t < $highTime) {
+			if (isSoughtPoint($point, $fixedPoint, $error)) {	
 				$selectedPoints[] = $point;
 			} 
 		}
@@ -66,35 +71,37 @@ function generateDirections(array $startPoints, array $endPoints) : array {
 	$directions = array();
 	usort($startPoints, "compareByTime");
 	usort($endPoints, "compareByTime");
+	
 	$startPointTimeLimit = $endPoints[0] -> t;
+	foreach ($startPoints as &$point) {
+		if ($point -> t > $startPointTimeLimit) {
+			$point = array();
+			echo "Unset!";
+		}
+	}
+	
 	$endPointTimeLimit = $startPoints[count($startPoints) - 1] -> t;
-	for ($i = count($startPoints) - 1; $i > 0; $i--) {
-		if ($startPoints[i] -> t >= $startPointTimeLimit) {
-			unset($startPoints[i]);
-		} else {
-			break;
-		}
-	}
-	for ($i = count($endPoints) - 1; $i > 0; $i--) {
-		if ($endPoints[i] -> t <= $endPointTimeLimit) {
-			unset($endPoints[i]);
-		} else {
-			break;
-		}
-	}
+
+	echo "<hr/>Start limit: $startPointTimeLimit</br>";
+	echo "End limit: $endPointTimeLimit<hr/>";
 	$i = 0;
-	while ($i < count($endPoints) - 1 && $i < count($startPoints) - 1) {
-		echo "startPoint: <br/>";
-		printArray($startPoints[$i]);
-		echo "endPoint: <br/>";
-		printArray($endPoints[$i]);
-		echo "<hr/>";
+	while ($i < count($endPoints) && $i < count($startPoints)) {
+//		echo "startPoint: <br/>";
+//		printArray($startPoints[$i]);
+//		echo "endPoint: <br/>";
+//		printArray($endPoints[$i]);
+//		echo "<hr/>";
 		$directions[] = array(
 			$startPoints[$i], 
 			$endPoints[$i]
 		);
 		$i++;
 	}
+	echo "Start sorted points:<br/>";
+	tempPrint($startPoints);
+	echo "End sorted points:<br/>";
+	tempPrint($endPoints);
+	echo "<hr/>";
 	return $directions;
 }
 
@@ -110,6 +117,17 @@ function isSoughtPoint($point, $fixedPoint, array $error) : bool {
 	) {
 		return true;
 	} 
+//	
+//	$latP = $fixedPoint -> lat + (float) $error['lat'];
+//	$lat = $point -> lat;
+//	$latM = $fixedPoint -> lat - (float) $error['lat'];
+//	
+//	$lngP = $fixedPoint -> lng + (float) $error['lng'];
+//	$lng = $point -> lng;
+//	$lngM = $fixedPoint -> lng - (float) $error['lng'];	
+//	
+//	echo "Lat: <br/>{$latM}<br/>{$lat}<br/>{$latP}<br/>";	
+//	echo "Lng: <br/>{$lngM}<br/>{$lng}<br/>{$lngP}<hr/>";
 	return false;
 }
 
@@ -128,12 +146,18 @@ function printArray($array) {
 	echo "</pre>";
 }
 
+function tempPrint($array) {
+	foreach ($array as $item) {
+		echo "{$item -> t}<br/>";
+	}
+}
+
 function printData($data) {
 	echo "<pre>";
 	foreach ($data as $array) {
 		print_r($array);
 		$time = $array[1] -> t - $array[0] -> t;
-		echo "<br/>Interval: $time<hr/><br/>";
+		echo "<br/><h1>Interval: $time sec</h1><hr/><br/>";
 	}
 	echo "</pre>";
 }
