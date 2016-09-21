@@ -14,8 +14,7 @@ declare (strict_types = 1);
 			
 */
 function filterData(
-	array $data, 
-	array $fixedPoints,			
+	array $data, 		
 	int $routeType,		   	
 	int $lowTime,		   	
 	int $highTime,			   	
@@ -23,32 +22,21 @@ function filterData(
 	array $endPoint,			   
 	int $error) : array 
 {
-	$sections = array();
-	for($i = 0; i < count($fixedPoints) - 2;) {
-		$counter = 0;
-		$startPoint = $fixedPoints[$i];
-		$endPoint = $fixedPoints[++$i];
-		$startPoints = getStartPoints(
-			$data,
-			$startPoint, 
-			$lowTime, 
-			$highTime, 
-			$error
-		);
-		$endPoints = getEndPoints(
-			$data, 
-			$endPoint, 
-			$lowTime, 
-			$highTime, 
-			$error
-		);
-		$sections[$counter++] = generateAllSections(
-			$startPoints,
-			$endPoints, 
-			$routeType
-		);
-	}
-	return generateDirections($sections, $fixedPoints);
+	$startPoints = getStartPoints(
+		$data,
+		$startPoint, 
+		$lowTime, 
+		$highTime, 
+		$error
+	);
+	$endPoints = getEndPoints(
+		$data, 
+		$endPoint, 
+		$lowTime, 
+		$highTime, 
+		$error
+	);
+	return generateDirections($startPoints, $endPoints);
 }
 
 function getStartPoints(
@@ -71,18 +59,7 @@ function getEndPoints(
 	return array();
 }
 
-function generateAllSections(
-	array $startPoints, 
-	array $endPoints, 
-	int $routeType) : array 
-{
-	return array();
-}
-
-function generateDirections(
-	array $sections, 
-	array $fixedPoints) 
-{
+function generateDirections(array $startPoints, array $endPoints) {
 	return array();
 }
 

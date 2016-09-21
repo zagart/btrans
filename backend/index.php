@@ -11,7 +11,6 @@
 		<?php 
 			$data = loadAllData("bus.json");
 			printArray(filterData((array) $data,
-					(array) $fixedPoints,
 					(int) $routeType,
 				   	(int) $lowTime,
 				   	(int) $highTime,
