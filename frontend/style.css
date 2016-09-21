@@ -1,0 +1,35 @@
+* {
+	font-family: Arial, Geneva, sans-serif;
+}
+fieldset {
+	border: 2px solid #c1c1c1; width: 400px; margin: 15px 0 0 15px; padding: 20px 10px 0 10px;
+}
+legend {
+	margin: 0 auto; padding: 0 5px; font-size: 18px;
+}
+.labelForm {
+	float: left; line-height: 2.3em;
+}
+.inputForm {
+	float: right;
+}
+
+input {
+	margin-bottom: 10px;  border: 1px solid #4A4A4A; width: 200px;
+}
+input[type="text"], input[type="datetime-local"] {
+	padding: 3px 5px; 
+}
+input[type="text"] {
+	 padding: 5px 5px; 
+	
+}
+input:focus {
+	border: 1px solid #35a5e5;
+	box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+	-webkit-box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+	-moz-box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+}
+.sendData {
+	width: 100px; height: 25px; float: right;
+}
