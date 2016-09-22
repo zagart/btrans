@@ -41,11 +41,6 @@ function filterData(
 		$highTime, 
 		$error
 	);
-//	echo "Start points:<br/>";
-//	printArray($startPoints);
-//	echo "End points:<br/>";
-//	printArray($endPoints);
-//	echo "<hr/>";
 	return generateDirections($startPoints, $endPoints);
 }
 
@@ -71,26 +66,27 @@ function generateDirections(array $startPoints, array $endPoints) : array {
 	$directions = array();
 	usort($startPoints, "compareByTime");
 	usort($endPoints, "compareByTime");
-	
 	$startPointTimeLimit = $endPoints[0] -> t;
-	foreach ($startPoints as &$point) {
-		if ($point -> t > $startPointTimeLimit) {
-			$point = array();
-			echo "Unset!";
+	while ($point = each($startPoints)) {
+		if ($point[1] -> t > $startPointTimeLimit) {
+			$startPoints = array_slice($startPoints, 0, $point[0]);
+			break;
 		}
 	}
-	
 	$endPointTimeLimit = $startPoints[count($startPoints) - 1] -> t;
-
+	end($endPoints);
+	while (!is_null($index = key($endPoints))) {
+		$point = current($endPoints);
+		if ($point -> t <= $endPointTimeLimit) {
+			$endPoints = array_slice($endPoints, $index + 1, sizeof($endPoints) - 1);
+			break;
+		}
+		prev($endPoints);
+	}
 	echo "<hr/>Start limit: $startPointTimeLimit</br>";
 	echo "End limit: $endPointTimeLimit<hr/>";
 	$i = 0;
 	while ($i < count($endPoints) && $i < count($startPoints)) {
-//		echo "startPoint: <br/>";
-//		printArray($startPoints[$i]);
-//		echo "endPoint: <br/>";
-//		printArray($endPoints[$i]);
-//		echo "<hr/>";
 		$directions[] = array(
 			$startPoints[$i], 
 			$endPoints[$i]
@@ -98,9 +94,9 @@ function generateDirections(array $startPoints, array $endPoints) : array {
 		$i++;
 	}
 	echo "Start sorted points:<br/>";
-	tempPrint($startPoints);
+	printPointsTime($startPoints);
 	echo "End sorted points:<br/>";
-	tempPrint($endPoints);
+	printPointsTime($endPoints);
 	echo "<hr/>";
 	return $directions;
 }
@@ -146,20 +142,21 @@ function printArray($array) {
 	echo "</pre>";
 }
 
-function tempPrint($array) {
-	foreach ($array as $item) {
-		echo "{$item -> t}<br/>";
-	}
-}
-
 function printData($data) {
-	echo "<pre>";
+	echo "<h1>Generated direction.</h1><pre>";
 	foreach ($data as $array) {
 		print_r($array);
 		$time = $array[1] -> t - $array[0] -> t;
-		echo "<br/><h1>Interval: $time sec</h1><hr/><br/>";
+		echo "<h2>Interval: $time sec</h2>";
+		echo "<hr/><br/>";
 	}
 	echo "</pre>";
+}
+
+function printPointsTime($points) {
+	foreach ($points as $point) {
+		echo "{$point -> t}<br/>";
+	}
 }
 
 ?>

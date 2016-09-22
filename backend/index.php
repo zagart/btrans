@@ -15,9 +15,9 @@
 			printData(filterData(
 				$data,
 				(int) $routeType,
-				$data[2] -> t,
+				$data[0] -> t,
 				$data[4] -> t,
-				$data[2],
+				$data[0],
 				$data[4],
 				array ("lat" => DEFAULT_LAT_ERR, "lng" => DEFAULT_LNG_ERR)
 				)
