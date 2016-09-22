@@ -147,8 +147,10 @@ function printData($data) {
 	foreach ($data as $array) {
 		print_r($array);
 		$time = $array[1] -> t - $array[0] -> t;
+		$distance = round(calculateDistance($array[0], $array[1]));
 		echo "<h2>Interval: $time sec</h2>";
-		echo "<hr/><br/>";
+		echo "<h2>Distance: $distance m</h2>";
+		echo "<hr/>";
 	}
 	echo "</pre>";
 }
@@ -157,6 +159,16 @@ function printPointsTime($points) {
 	foreach ($points as $point) {
 		echo "{$point -> t}<br/>";
 	}
+}
+
+function calculateDistance($pointA, $pointB) : float {
+        $latA=deg2rad($pointA -> lat); 
+        $lngA=deg2rad($pointA -> lng); 
+        $latB=deg2rad($pointB -> lat); 
+        $lngB=deg2rad($pointB -> lng); 
+        $delta_lat=($latB - $latA); 
+        $delta_lng=($lngB - $lngA); 
+        return 6378137 * acos(cos($latA) * cos($latB) * cos($lngA - $lngB) + sin( $latA) * sin($latB));
 }
 
 ?>
