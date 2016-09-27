@@ -34,8 +34,8 @@
 			echo "</h3><hr/>";
 		?>
 -->
-		<?php 
-			if ($_REQUEST["method"] == "POST") {
+		<?php
+			if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				echo "<h1>REQUESTED POST METHOD.</h1>";
 			}
 		?>
