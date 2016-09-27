@@ -10,15 +10,16 @@
 	</head>
 	<body>
 		<h1>Data parser index.html</h1>
+<!--
 		<?php 
 			$data = loadAllData("xxx.json");
 			printData(filterData(
 				$data,
 				(int) $routeType,
-				$data[0] -> t,
-				$data[10] -> t,
-				$data[0],
-				$data[5],
+				$data[2] -> t,
+				$data[4] -> t,
+				$data[2],
+				$data[4],
 				array ("lat" => DEFAULT_LAT_ERR, "lng" => DEFAULT_LNG_ERR)
 				)
 			);
@@ -31,6 +32,12 @@
 			echo "<h3>Test distance(~100m): ";
 			print(calculateDistance($pointA, $pointB));
 			echo "</h3><hr/>";
+		?>
+-->
+		<?php 
+			if ($_REQUEST["method"] == "POST") {
+				echo "<h1>REQUESTED POST METHOD.</h1>";
+			}
 		?>
 	</body>
 </html>

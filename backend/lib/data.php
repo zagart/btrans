@@ -1,6 +1,16 @@
 <?php
 declare (strict_types = 1);
 
+function calculateDistance($pointA, $pointB) : float {
+        $latA=deg2rad($pointA -> lat); 
+        $lngA=deg2rad($pointA -> lng); 
+        $latB=deg2rad($pointB -> lat); 
+        $lngB=deg2rad($pointB -> lng); 
+        $delta_lat=($latB - $latA); 
+        $delta_lng=($lngB - $lngA); 
+        return 6378137 * acos(cos($latA) * cos($latB) * cos($lngA - $lngB) + sin( $latA) * sin($latB));
+}
+
 function compareByTime($a, $b) : int {
     if ($a -> t == $b -> t)
     {
@@ -161,14 +171,8 @@ function printPointsTime($points) {
 	}
 }
 
-function calculateDistance($pointA, $pointB) : float {
-        $latA=deg2rad($pointA -> lat); 
-        $lngA=deg2rad($pointA -> lng); 
-        $latB=deg2rad($pointB -> lat); 
-        $lngB=deg2rad($pointB -> lng); 
-        $delta_lat=($latB - $latA); 
-        $delta_lng=($lngB - $lngA); 
-        return 6378137 * acos(cos($latA) * cos($latB) * cos($lngA - $lngB) + sin( $latA) * sin($latB));
+function randomDirection() {
+	
 }
 
 ?>
