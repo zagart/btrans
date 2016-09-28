@@ -1,5 +1,6 @@
 <?php
-	require_once "lib".DIRECTORY_SEPARATOR."data.php";
+	require_once "lib".DIRECTORY_SEPARATOR."data.inc.php";
+	require_once "lib".DIRECTORY_SEPARATOR."autoloader.inc.php";
 	define('DEFAULT_LAT_ERR', 0.00003);
 	define('DEFAULT_LNG_ERR', 0.00004);
 ?>
@@ -32,9 +33,12 @@
 			echo "<h3>Test distance(~100m): ";
 			print(calculateDistance($pointA, $pointB));
 			echo "</h3><hr/>";
+			
 		?>
 -->
 		<?php
+			$point = new Point(13.122142, 14.435311);
+			echo $point;
 			if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				echo "<h1>REQUESTED POST METHOD.</h1>";
 				echo "<pre>";
