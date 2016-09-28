@@ -1,14 +1,20 @@
 <?php
 
-require_once ".."
-	.DIRECTORY_SEPARATOR."interfaces"
-	.DIRECTORY_SEPARATOR."Locatable.interface.php";
-
-class GPSNavigator implements Locatable {
+class GPSNavigator extends StrictAccessClass implements Locatable {
 	
-	public function getPoint() : Point {
-		return new Point(0.0, 0.0);
+	private $id = 0;
+	private $archive = array();
+	
+	public function addLocation($location) {
+		if ($location instanceof Location) {
+			$this -> archive[] = $location;
+		} else {
+			throw new IllegalArgumentException("Object of class Location expected");
+		}
 	}
 	
+	public function getLocationsArchive() : array {
+		return $this -> archive;
+	}
+		
 }
-new GPSNavigator();

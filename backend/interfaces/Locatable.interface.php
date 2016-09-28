@@ -2,6 +2,8 @@
 
 interface Locatable {
 	
-	function getPoint();
+	function addLocation($location);
+	
+	function getLocationsArchive();
 	
 }
