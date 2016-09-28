@@ -41,6 +41,7 @@
 				print_r($_REQUEST);
 				echo "</pre>";
 			}
+			
 		?>
-	</body>
+</body>
 </html>
