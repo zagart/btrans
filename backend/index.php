@@ -13,6 +13,7 @@
 	<body>
 		<h1>Data parser index.html</h1>
 		<?php 
+			//Change for commit.
 			$location = new Location(0.1, 2.2, 1932041924);
 			$gps = new GPSNavigator();
 			$gps -> addLocation($location);
