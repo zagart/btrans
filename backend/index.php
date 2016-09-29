@@ -14,8 +14,6 @@
 	</head>
 	<body>
 		<h1>Data parser index.html</h1>
-		
-<!-- Commit for rebase.
 		<?php 
 			$startLocation = new Location(50.1, 60.1, 10000);
 			$endLocation = new Location(50.2, 60.2, 11000);
@@ -31,8 +29,7 @@
 				Core::OBJECT_TYPE_ROUND
 			);
 			$core -> process(new IdAlgorithm());
-			$core -> getDirections();
+//			$core -> getDirections();
 		?>
--->
 	</body>
 </html>

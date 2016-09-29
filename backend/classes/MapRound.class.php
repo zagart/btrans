@@ -14,4 +14,12 @@ class MapRound extends MapObject {
 		return array($this -> location, $this -> radius);
 	}
 	
+	public function isContainsLocation(Location $location) : bool {
+		if ($this -> location -> distanceTo($location) <= $this -> radius) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 }
