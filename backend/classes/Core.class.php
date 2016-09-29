@@ -10,9 +10,10 @@ class Core extends StrictAccessClass {
 	const OBJECT_TYPE_POLYGON = 1;
 	
 	private $data = array();
+	private $directions = null;
+	private $endObject = null;
 	private $model = null;
 	private $startObject = null;
-	private $endObject = null;
 	
 	public function __construct() {
 		$this -> model = new DataModel();
@@ -26,6 +27,14 @@ class Core extends StrictAccessClass {
 			throw new InvalidOperationException("There is no data for convert. Load data first");
 		}
 	}
+	
+	public function getDirections() : array {
+		if (!empty($this -> directions)) {
+			return $this -> directions;
+		} else {
+			throw new InvalidOperationException("Directions still not generated. Call process method firstly to generate directions");
+		}		
+	}
 
 	public function loadData(string $fileName, 
 					  string $path = self::DEFAULT_DATA_PATH) {
@@ -36,7 +45,11 @@ class Core extends StrictAccessClass {
 	}
 	
 	public function process(Algorithm $logic) {
-		$logic -> execute($this -> $model);
+		if ($this -> model -> isActive()) {
+			$this -> directions = $logic -> execute($this -> model);
+		} else {
+			throw new InvalidOperationException("No model to process. Convert data firstly");
+		}
 	}
 	
 	private function setRoundObjects(MapRound $startObject, 

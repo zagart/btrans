@@ -2,21 +2,29 @@
 
 class DataModel extends StrictAccessClass {
 	
-	private $transport;
-	private $gps;
-	private $locations;
+	private $active = false;
+	private $transport = array();
+	private $gps = array();
+	private $locations = array();
 		
-	/*{
-	"n":"001",
-	"c":0,
-	"id":50,
-	"t":1475148789,
-	"a":54,
-	"s":0,
-	"lat":53.64017,
-	"lng":23.8647733}
-	*/
+	public function getGps() : array {
+		return $this -> gps;
+	}
+	
+	public function getLocations() : array {
+		return $this -> locations;
+	}
+	
+	public function getTransport() : array {
+		return $this -> transport;
+	}
+	
+	public function isActive() : bool {
+		return $this -> active;
+	}
+	
 	public function parseData(array $data) {
+		$this -> active = true;
 		foreach ($data as $record) {
 			$this -> transport[] = new Transport($record -> n, $record -> c);
 			$this -> gps[] = new GPSNavigator($record -> id);

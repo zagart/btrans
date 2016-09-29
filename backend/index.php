@@ -29,6 +29,8 @@
 				$endObject, 
 				Core::OBJECT_TYPE_ROUND
 			);
+			$core -> process(new IdAlgorithm());
+			$core -> getDirections();
 		?>
 -->
 	</body>
