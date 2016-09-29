@@ -63,5 +63,16 @@ class Location extends StrictAccessClass {
 	public function getTimestamp() : int {
 		return $this -> timestamp;
 	}
+	
+	public function toArray() {
+		return array(
+			"azimuth" => $this -> azimuth,
+			"id" => $this -> id,
+			"lat" => $this -> lat,
+			"lng" => $this -> lng,
+			"timestamp" => $this -> timestamp,
+			"speed" => $this -> speed
+		);
+	}
 
 }

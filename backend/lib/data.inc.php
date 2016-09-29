@@ -127,14 +127,7 @@ function isSoughtPoint($point, $fixedPoint, array $error) : bool {
 	return false;
 }
 
-function loadAllData(string $fileName) : array {
-	$file = file_get_contents("resources".DIRECTORY_SEPARATOR.$fileName);
-	if ($file) {
-			return json_decode($file);
-	} else {
-			return array();
-	}
-}
+
 
 function printArray($array) {
 	echo "<pre>";
@@ -159,10 +152,6 @@ function printPointsTime($points) {
 	foreach ($points as $point) {
 		echo "{$point -> t}<br/>";
 	}
-}
-
-function randomDirection() {
-	
 }
 
 ?>

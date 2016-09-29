@@ -3,6 +3,9 @@
 	require_once "lib".DIRECTORY_SEPARATOR."autoloader.inc.php";
 	require_once "lib".DIRECTORY_SEPARATOR."common.inc.php";
 	require_once "lib".DIRECTORY_SEPARATOR."data.inc.php";
+	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+		printRandomDirections((int) $_POST["quantity"]);
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -11,6 +14,7 @@
 	</head>
 	<body>
 		<h1>Data parser index.html</h1>
+<!--
 		<?php 
 			$startLocation = new Location(50.1, 60.1, 10000);
 			$endLocation = new Location(50.2, 60.2, 11000);
@@ -26,5 +30,6 @@
 				Core::OBJECT_TYPE_ROUND
 			);
 		?>
+-->
 	</body>
 </html>
