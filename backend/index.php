@@ -1,7 +1,11 @@
 <?php
-	require_once "lib".DIRECTORY_SEPARATOR."data.php";
-	define('DEFAULT_LAT_ERR', 0.00003);
-	define('DEFAULT_LNG_ERR', 0.00004);
+	error_reporting(E_ALL);
+	require_once "lib".DIRECTORY_SEPARATOR."autoloader.inc.php";
+	require_once "lib".DIRECTORY_SEPARATOR."common.inc.php";
+	require_once "lib".DIRECTORY_SEPARATOR."data.inc.php";
+	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+		printRandomDirections((int) $_POST["quantity"]);
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -10,28 +14,22 @@
 	</head>
 	<body>
 		<h1>Data parser index.html</h1>
-		<!-- 
-		#Test string for rebase.
-		id - идентификатор навигатора
-		n - номер маршрута
-		с - тип транспорта (троллейбус 1 автобус 0 маршрутка 4)
-		t - временная отметка положения транспорта Unix
-		lat, lag - координаты
-		a - азимут (угол)
-		s - скорость транспорта -->
-		<?php
-		$data = loadAllData("xxx.json");
-		$filteredData = filterData(
-				$data,
-				(int) $routeType,
-				$data[2] -> t,
-				$data[4] -> t,
-				$data[2],
-				$data[4],
-				array ("lat" => DEFAULT_LAT_ERR, "lng" => DEFAULT_LNG_ERR)
-				);
-		$directions = json_encode($filteredData);
-		echo $directions;
+<!--
+		<?php 
+			$startLocation = new Location(50.1, 60.1, 10000);
+			$endLocation = new Location(50.2, 60.2, 11000);
+			$radius = 2;
+			$startObject = new MapRound($startLocation, $radius);
+			$endObject = new MapRound($endLocation, $radius);
+			$core = new Core();
+			$core -> loadData("ALL_routes.json");
+			$core -> convertData();
+			$core -> setUpInitialData(
+				$startObject, 
+				$endObject, 
+				Core::OBJECT_TYPE_ROUND
+			);
 		?>
-</body>
+-->
+	</body>
 </html>
