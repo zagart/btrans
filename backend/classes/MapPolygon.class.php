@@ -6,7 +6,7 @@ class MapPolygon extends MapObject {
 		return array();
 	}
 	
-	public function isContainsLocation() : bool {
+	public function isContainsLocation(Location $location) : bool {
 		return false;
 	}
 	
