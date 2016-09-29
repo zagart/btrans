@@ -2,7 +2,7 @@
 
 interface Locatable {
 	
-	function addLocation($location);
+	function addLocation(Location $location);
 	
 	function getLocationsArchive();
 	
