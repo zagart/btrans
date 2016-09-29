@@ -4,13 +4,14 @@ class Transport {
 	
 	private static $counter = 0;
 	
-	private $gps;
+	private $gps = null;
 	private $id = 0;
 	private $route = ""; //n
 	private $type = 0; //c
 	
-	public function __construct() {
-		$gps = new GPSNavigator();
+	public function __construct(string $route, int $type) {
+		$this -> route = $route;
+		$this -> type = $type;
 		self::$counter++;
 		$this -> id = self::$counter;
 	}
@@ -29,6 +30,10 @@ class Transport {
 	
 	public function getType() : int {
 		return $this -> type;
+	}
+	
+	public function setGpsNavigator(GPSNavigator $gps) {
+		$this -> gps = $gps;
 	}
 	
 }

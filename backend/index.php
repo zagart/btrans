@@ -1,9 +1,8 @@
 <?php
+	error_reporting(E_ALL);
 	require_once "lib".DIRECTORY_SEPARATOR."autoloader.inc.php";
 	require_once "lib".DIRECTORY_SEPARATOR."common.inc.php";
 	require_once "lib".DIRECTORY_SEPARATOR."data.inc.php";
-	define('DEFAULT_LAT_ERR', 0.00003);
-	define('DEFAULT_LNG_ERR', 0.00004);
 ?>
 <!DOCTYPE html>
 <html>
@@ -13,10 +12,19 @@
 	<body>
 		<h1>Data parser index.html</h1>
 		<?php 
-			//Change for commit.
-			$location = new Location(0.1, 2.2, 1932041924);
-			$gps = new GPSNavigator();
-			$gps -> addLocation($location);
+			$startLocation = new Location(50.1, 60.1, 10000);
+			$endLocation = new Location(50.2, 60.2, 11000);
+			$radius = 2;
+			$startObject = new MapRound($startLocation, $radius);
+			$endObject = new MapRound($endLocation, $radius);
+			$core = new Core();
+			$core -> loadData("ALL_routes.json");
+			$core -> convertData();
+			$core -> setUpInitialData(
+				$startObject, 
+				$endObject, 
+				Core::OBJECT_TYPE_ROUND
+			);
 		?>
 	</body>
 </html>
