@@ -2,25 +2,21 @@
 
 class Direction extends StrictAccessClass {
 	
-	private static $counter = 0;
+	protected static $counter = 0;
 	
-	private $id = 0;
-	private $transportRoute = "";
-	private $transportType = 0;
-	private $gpsId = 0;
-	private $startLocation = null;
-	private $endLocation = null;
+	protected $id = 0;
+	protected $transportRoute = "";
+	protected $transportType = 0;
+	protected $gpsId = 0;
+	protected $startLocation = null;
+	protected $endLocation = null;
 	
-	public function __construct(Location $startLocation, 
-								Location $endLocation,
-							   	int $gpsId = 0,
-							   	string $transportRoute = "",
-							   	int $transportType = 0) {
-		$this -> startLocation = $startLocation;
-		$this -> endLocation = $endLocation;	
-		$this -> gpsId = $gpsId;
-		$this -> transportRoute = $transportRoute;
-		$this -> transportType = $transportType;
+	public function __construct(Transport $startCopy, Transport $endCopy) {
+		$this -> startLocation = $startCopy -> getGpsNavigator() -> getAverageLocation();
+		$this -> endLocation = $endCopy -> getGpsNavigator() -> getAverageLocation();
+		$this -> gpsId = $startCopy -> getGpsNavigator();
+		$this -> transportRoute = $startCopy -> getRoute()."/".$endCopy -> getRoute();
+		$this -> transportType = $startCopy -> getType();
 		self::$counter++;
 		$this -> id = self::$counter;
 	}

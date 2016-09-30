@@ -15,21 +15,29 @@
 	<body>
 		<h1>Data parser index.html</h1>
 		<?php 
-			$startLocation = new Location(50.1, 60.1, 10000);
-			$endLocation = new Location(50.2, 60.2, 11000);
-			$radius = 2;
+			$core = new Core();
+			$core -> loadData("ALL_routes_28h.json");
+			$data = $core -> getData();
+			$core -> convertData();
+			
+			$startIndex = 2;
+			$endIndex = 22;
+		
+			$startLocation = new Location(53.6859983, 23.8474583);
+			$endLocation = new Location(53.6449033, 23.8558033);
+			$radius = 10;
 			$startObject = new MapRound($startLocation, $radius);
 			$endObject = new MapRound($endLocation, $radius);
-			$core = new Core();
-			$core -> loadData("ALL_routes.json");
-			$core -> convertData();
+		
 			$core -> setUpInitialData(
 				$startObject, 
 				$endObject, 
 				Core::OBJECT_TYPE_ROUND
 			);
-			$core -> process(new IdAlgorithm());
-//			$core -> getDirections();
+			$core -> process(
+				new IdAlgorithm(),
+				new TimeLimiter(1475240000, 1475248461)
+			);
 		?>
 	</body>
 </html>
