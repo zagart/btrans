@@ -13,7 +13,8 @@
 		<title>#dataParser</title>		
 	</head>
 	<body>
-		<h1>Data parser index.html</h1>
+		<h1>Data parser index.php</h1>
+<!--
 		<?php 
 			$core = new Core();
 			$core -> loadData("ALL_routes_28h.json");
@@ -39,5 +40,6 @@
 				new TimeLimiter(1475240000, 1475248461)
 			);
 		?>
+-->
 	</body>
 </html>

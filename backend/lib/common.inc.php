@@ -9,6 +9,6 @@ function printObject($object) {
 
 function printRandomDirections(int $quantity) {
 	for ($i = 0; $i < $quantity; $i++) {
-		printObject((new RandomDirection()) -> toArray());	
+		printObject(json_encode((new RandomDirection()) -> toArray()));	
 	}
 }
