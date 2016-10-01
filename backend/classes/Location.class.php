@@ -30,6 +30,16 @@ class Location extends StrictAccessClass {
 		</h2><hr/>";
 	}
 	
+	public static function compareByTime($a, $b) : int {
+		if ($a -> getTimestamp() == $b -> getTimestamp()) {
+			return 0;
+		} else if ($a -> getTimestamp() > $b -> getTimestamp()) {
+			return 1;
+		} else {
+			return -1;
+		}
+	}
+	
 	public function distanceTo(Location $location) : int {
 		$latA=deg2rad($this -> lat); 
         $lngA=deg2rad($this -> lng); 
@@ -64,6 +74,10 @@ class Location extends StrictAccessClass {
 		return $this -> timestamp;
 	}
 	
+	public function timeTo(Location $location) : int {
+		return abs($this -> timestamp - $location -> getTimestamp());
+	}
+	
 	public function toArray() {
 		return array(
 			"azimuth" => $this -> azimuth,
@@ -74,5 +88,26 @@ class Location extends StrictAccessClass {
 			"speed" => $this -> speed
 		);
 	}
+	
+	public static function splitLocationsByDelayTime(array &$locations, int $delayTime) : array {
+		usort($locations, array("Location", "compareByTime"));
+		$result = array();
+		while (sizeof($locations) > 0) {
+			$archive = array();
+			$startLocation = clone $locations[0];
+			for ($i = 0; $i < sizeof($locations); $i++) {
+				if ($startLocation -> timeTo($locations[$i]) <= $delayTime) {
+					$time = $startLocation -> timeTo($locations[$i]);
+					$archive[] = $locations[$i];
+					unset($locations[$i]);
+					$locations = array_values($locations);
+					$i--;
+				}
+			}
+			$result[] = $archive;
+		}
+		return $result;
+	}
+	
 
 }

@@ -14,8 +14,9 @@
 	</head>
 	<body>
 		<h1>Data parser index.php</h1>
-<!--
 		<?php 
+		//1475248461
+			$baseTime = 1475200000;
 			$core = new Core();
 			$core -> loadData("ALL_routes_28h.json");
 			$data = $core -> getData();
@@ -37,9 +38,11 @@
 			);
 			$core -> process(
 				new IdAlgorithm(),
-				new TimeLimiter(1475240000, 1475248461)
+				new TimeLimiter($baseTime, $baseTime + TimeLimiter::DAY)
 			);
+			foreach ($core -> getDirections() as $direction) {
+				printObject($direction -> toArray());
+			}
 		?>
--->
 	</body>
 </html>
