@@ -7,16 +7,28 @@ class DataModel extends StrictAccessClass {
 	private $gps = array();
 	private $locations = array();
 		
-	public function getGps() : array {
-		return $this -> gps;
+	public function getGps(int $index = -1) {
+		if ($index === -1) {
+			return $this -> gps;
+		} else {
+			return $this -> gps[$index];
+		}
 	}
 	
-	public function getLocations() : array {
-		return $this -> locations;
+	public function getLocations(int $index = -1) {
+		if ($index === -1) {
+			return $this -> locations;
+		} else {
+			return $this -> locations[$index];
+		}
 	}
 	
-	public function getTransport() : array {
-		return $this -> transport;
+	public function getTransport(int $index = -1) {
+		if ($index === -1) {
+			return $this -> transport;
+		} else {
+			return $this -> transport[$index];
+		}
 	}
 	
 	public function isActive() : bool {

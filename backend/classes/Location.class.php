@@ -11,7 +11,7 @@ class Location extends StrictAccessClass {
 	
 	public function __construct(float $lat, 
 								float $lng, 
-								int $timestamp, 
+								int $timestamp = 0, 
 								int $azimuth = 0,
 							   	int $speed = 0) {
 		$this -> lat = $lat;

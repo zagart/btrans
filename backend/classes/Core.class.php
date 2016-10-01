@@ -28,12 +28,36 @@ class Core extends StrictAccessClass {
 		}
 	}
 	
+	public function getData() : array {
+		if (!empty($this -> data)) {
+			return $this -> data;
+		} else {
+			throw new InvalidOperationException("There is no data to get. Load data first");
+		}
+	}
+	
 	public function getDirections() : array {
 		if (!empty($this -> directions)) {
 			return $this -> directions;
 		} else {
 			throw new InvalidOperationException("Directions still not generated. Call process method firstly to generate directions");
 		}		
+	}
+	
+	public function getEndObject() : MapObject {
+		return $this -> endObject;
+	}
+	
+	public function getModel() : DataModel {
+		if (!empty($this -> model)) {
+			return $this -> model;
+		} else {
+			throw new InvalidOperationException("No model to process. Convert data firstly");
+		}	
+	}
+	
+	public function getStartObject() : MapObject {
+		return $this -> startObject;
 	}
 
 	public function loadData(string $fileName, 
@@ -44,9 +68,9 @@ class Core extends StrictAccessClass {
 		} 
 	}
 	
-	public function process(Algorithm $logic) {
+	public function process(Algorithm $logic, TimeLimiter $timeLimiter) {
 		if ($this -> model -> isActive()) {
-			$this -> directions = $logic -> execute($this -> model);
+			$this -> directions = $logic -> execute($this, $timeLimiter);
 		} else {
 			throw new InvalidOperationException("No model to process. Convert data firstly");
 		}

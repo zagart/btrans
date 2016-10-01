@@ -16,6 +16,17 @@ class Transport {
 		$this -> id = self::$counter;
 	}
 	
+	public function addGpsLocations(Transport $transport) {
+		if (!empty($this -> gps)) {
+			$locations = $transport -> getGpsNavigator() -> getLocationsArchive();
+			foreach ($locations as $location) {
+				$this -> gps -> addLocation($location);
+			}
+		} else {
+			throw new InvalidOperationException("This Transport object hasn't GPSNavigator object to add Location. Set GPSNavigator object firstly");
+		}
+	}
+	
 	public function getGpsNavigator() : GPSNavigator {
 		return $this -> gps;
 	}
