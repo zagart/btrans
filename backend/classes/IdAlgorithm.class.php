@@ -107,6 +107,9 @@ class IdAlgorithm extends Algorithm {
 			$core -> getEndObject(),
 			$timeLimiter
 		);
+		echo sizeof($this -> startPointTransport);
+		echo "<br/>";
+		echo sizeof($this -> endPointTransport);
 		$this -> groupTransportByGpsNavigator($this -> startPointTransport);
 		$this -> groupTransportByGpsNavigator($this -> endPointTransport);
 		$this -> filterTransportByDelayTime($this -> startPointTransport, self::DELAY_TIME);
