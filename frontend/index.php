@@ -20,7 +20,7 @@
 				dataType: "html",
 				data: $(this).serialize(),
 				success: function(html) {
-					$("#msg").html(html.transportRoute);
+					$("#msg").html(html);
 					
 				}
 			});
