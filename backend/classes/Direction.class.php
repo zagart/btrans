@@ -50,7 +50,7 @@ class Direction extends StrictAccessClass {
 			"directionId" => $this -> id,
 			"transportRoute" => $this -> transportRoute,
 			"transportType" => $this -> transportType,
-			"gpsId" => $this -> gpsId,
+			"gpsId" => $this -> gpsId -> getId(),
 			"startLocation" => $this -> startLocation -> toArray(),
 			"endLocation" => $this -> endLocation -> toArray()
 		);

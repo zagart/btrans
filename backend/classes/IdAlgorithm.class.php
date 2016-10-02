@@ -2,6 +2,7 @@
 
 class IdAlgorithm extends Algorithm {
 	
+	const DELAY_TIME = 180;
 	private $startPointTransport;
 	private $endPointTransport;
 	
@@ -16,29 +17,70 @@ class IdAlgorithm extends Algorithm {
 	}
 	
 	private function generateDirections() : array {
-		echo "<h1>Generation started.</h1><hr/>";
 		$directions = array();
 		if (empty($this -> startPointTransport) or empty($this -> endPointTransport)) {
-			echo "<h2>Empty...<h2><br/>";
 			return array();
 		}
-		foreach ($this -> startPointTransport as $startTransport) {
-			foreach ($this -> endPointTransport as $endTransport) {
+		for ($i = 0; $i < sizeof($this -> startPointTransport); $i++) {
+			for ($j = 0; $j < sizeof($this -> endPointTransport); $j++) {
 				if (
-					$startTransport -> getGpsNavigator() -> getId() ==
-					$endTransport -> getGpsNavigator() -> getId()
+					$this -> startPointTransport[$i] -> getGpsNavigator() -> getId() ==
+					$this -> endPointTransport[$j] -> getGpsNavigator() -> getId()
 				   ) {
 					$direction = new Direction(
-						$startTransport, 
-						$endTransport
+						$this -> startPointTransport[$i], 
+						$this -> endPointTransport[$j]
 					);
-					printObject($direction -> toArray());
+					unset($this -> startPointTransport[$i]);
+					unset($this -> endPointTransport[$j]);
+					$i > 0 ? $i-- : $i;
+					$j > 0 ? $j-- : $j;
+					$this -> startPointTransport = array_values($this -> startPointTransport);
+					$this -> endPointTransport = array_values($this -> endPointTransport);
 					$directions[] = $direction; 
-				}
-			}	
+
+				}		
+			}
 		}
 		return $directions;
 	} 
+	
+	private function rebuildTransport(
+		Transport $transport,
+		array $splittedLocations
+	) : array {
+		$transportByLocationsGroup = array();
+		foreach ($splittedLocations as $locationsGroup) {
+			$gps = new GPSNavigator($transport -> getGpsNavigator() -> getId());
+			$gps -> addAllLocations($locationsGroup);
+			$transport = new Transport(
+				$transport -> getRoute(),
+				$transport -> getType()
+			);
+			$transport -> setGpsNavigator($gps);
+			$transportByLocationsGroup[] = $transport;
+		}
+		return $transportByLocationsGroup;
+	}
+	
+	private function filterTransportByDelayTime(array &$transport, int $delayTime) {
+		$filteredTransport = array();
+		for ($i = 0; $i < sizeof($transport); $i++) {
+			$initialTime = $transport[$i] -> getGpsNavigator() -> getLocationsArchive()[0] -> getTimestamp();
+			$route = $transport[$i] -> getRoute();
+			$locations = $transport[$i] -> getGpsNavigator() -> getLocationsArchive();
+			$splittedLocations = Location::splitLocationsByDelayTime($locations, $delayTime);
+			foreach ($this -> rebuildTransport($transport[$i], $splittedLocations) as $unit) {
+				$filteredTransport[] = $unit;
+			}
+			unset($transport[$i]);
+			$transport = array_values($transport);
+			$i--;
+		}
+		foreach ($filteredTransport as $unit) {
+			$transport[] = $unit;
+		}
+	}
 	
 	private function groupTransportByGpsNavigator(array &$transport) {
 		for ($i = 0; $i < sizeof($transport) - 1; $i++) {
@@ -67,8 +109,8 @@ class IdAlgorithm extends Algorithm {
 		);
 		$this -> groupTransportByGpsNavigator($this -> startPointTransport);
 		$this -> groupTransportByGpsNavigator($this -> endPointTransport);
-//		printObject($this -> startPointTransport);
-//		printObject($this -> endPointTransport);
+		$this -> filterTransportByDelayTime($this -> startPointTransport, self::DELAY_TIME);
+		$this -> filterTransportByDelayTime($this -> endPointTransport, self::DELAY_TIME);
 		return $this -> generateDirections();
 	}
 	

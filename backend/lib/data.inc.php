@@ -1,22 +1,22 @@
 <?php
 declare (strict_types = 1);
 
-function compareByTime($a, $b) : int {
-    if ($a -> t == $b -> t)
-    {
-//        echo "a ({$a -> t}) is same priority as b ({$b -> t}), keeping the same<hr/>";
-        return 0;
-    }
-    else if ($a -> t > $b -> t)
-    {
-//        echo "a ({$a -> t}) is higher priority than b ({$b -> t}), moving b down array<hr/>";
-        return 1;
-    }
-    else {
-//        echo "b ({$b -> t}) is higher priority than a ({$a -> t}), moving b up array<hr/>";                
-        return -1;
-    }
-}
+//function compareByTime($a, $b) : int {
+//    if ($a -> t == $b -> t)
+//    {
+////        echo "a ({$a -> t}) is same priority as b ({$b -> t}), keeping the same<hr/>";
+//        return 0;
+//    }
+//    else if ($a -> t > $b -> t)
+//    {
+////        echo "a ({$a -> t}) is higher priority than b ({$b -> t}), moving b down array<hr/>";
+//        return 1;
+//    }
+//    else {
+////        echo "b ({$b -> t}) is higher priority than a ({$a -> t}), moving b up array<hr/>";                
+//        return -1;
+//    }
+//}
 
 function filterData(
 	array $data, 		

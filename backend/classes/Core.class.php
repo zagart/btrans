@@ -10,7 +10,7 @@ class Core extends StrictAccessClass {
 	const OBJECT_TYPE_POLYGON = 1;
 	
 	private $data = array();
-	private $directions = null;
+	private $directions = array();
 	private $endObject = null;
 	private $model = null;
 	private $startObject = null;
@@ -37,11 +37,7 @@ class Core extends StrictAccessClass {
 	}
 	
 	public function getDirections() : array {
-		if (!empty($this -> directions)) {
-			return $this -> directions;
-		} else {
-			throw new InvalidOperationException("Directions still not generated. Call process method firstly to generate directions");
-		}		
+		return $this -> directions;	
 	}
 	
 	public function getEndObject() : MapObject {

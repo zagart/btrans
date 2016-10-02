@@ -9,6 +9,12 @@ class GPSNavigator extends StrictAccessClass implements Locatable {
 		$this -> id = $id;
 	}
 	
+	public function addAllLocations(array $locations) {
+		foreach ($locations as $location) {
+			$this -> addLocation($location);
+		}
+	}
+	
 	public function addLocation(Location $location) {
 		$this -> archive[] = $location;
 	}
