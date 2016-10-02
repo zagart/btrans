@@ -107,9 +107,13 @@ class IdAlgorithm extends Algorithm {
 			$core -> getEndObject(),
 			$timeLimiter
 		);
+		echo "Start locations found: ";
 		echo sizeof($this -> startPointTransport);
-		echo "<br/>";
+		echo ".<br/>";
+		echo "End locations found: ";
 		echo sizeof($this -> endPointTransport);
+		echo ".<br/>";
+		echo "<br/>";
 		$this -> groupTransportByGpsNavigator($this -> startPointTransport);
 		$this -> groupTransportByGpsNavigator($this -> endPointTransport);
 		$this -> filterTransportByDelayTime($this -> startPointTransport, self::DELAY_TIME);

@@ -1,6 +1,6 @@
 <?php
 	error_reporting(E_ALL);
-	define("SOURCE_FILE_PATH", "ALL_routes_73h.json");
+	define("SOURCE_FILE_PATH", "ALL_routes_28h.json");
 	require_once "lib".DIRECTORY_SEPARATOR."autoloader.inc.php";
 	require_once "lib".DIRECTORY_SEPARATOR."common.inc.php";
 	require_once "lib".DIRECTORY_SEPARATOR."data.inc.php";
@@ -19,8 +19,8 @@
 			$latB = $_POST["latitudeB"];
 			$lngB = $_POST["longitudeB"];
 			$radius = $_POST["radius"];;
-			$minTime = $_POST["minTime"];;
-			$maxTime = $_POST["maxTime"];
+			$minTime = strtotime($_POST["minTime"]);
+			$maxTime = strtotime($_POST["maxTime"]);
 			$jsonFormat = true;
 			printRealDirections(SOURCE_FILE_PATH, 
 								$latA, 
