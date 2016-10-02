@@ -33,9 +33,12 @@ class IdAlgorithm extends Algorithm {
 					);
 					unset($this -> startPointTransport[$i]);
 					unset($this -> endPointTransport[$j]);
+					$i > 0 ? $i-- : $i;
+					$j > 0 ? $j-- : $j;
 					$this -> startPointTransport = array_values($this -> startPointTransport);
 					$this -> endPointTransport = array_values($this -> endPointTransport);
 					$directions[] = $direction; 
+
 				}		
 			}
 		}
