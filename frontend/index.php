@@ -20,10 +20,14 @@
 				dataType: "html",
 				data: $(this).serialize(),
 				success: function(html) {
-					$("#msg").html(html);
+					$("#msg").html(html.transportRoute);
+					
 				}
 			});
+			
 		});	
+		/*var date = document.getElementById("minTime").getAttribute("value");
+		alert(date);*/
 	}
 	
 	</script>
@@ -31,24 +35,30 @@
 <body>
 <form method="post" id="myForm" action="" >
 	<fieldset>
-		<legend>Форма диспетчера</legend>
+		<legend>Form Manager</legend>
 		
 			<div class="labelForm">
-				<label>Остановка 1</label><br>
-				<label>Остановка 2</label><br>
-				<label>Радиус</label><br>
-				<label>Время старта</label><br>
-				<label>Время интервала</label><br>
+				<label>Latitude A</label><br>
+				<label>longitude A</label><br>
+				<label>Latitude B</label><br>
+				<label>longitude B</label><br>
+				<label>Radius</label><br>
+				<label>MinTime</label><br>
+				<label>MaxTime</label><br>
 			</div>
 			<div class="inputForm">
-				<input class="Dolgota" type="text" name="Dolgota" /><br>
-				<input class="Shirota" type="text" name="Shirota" /><br>
-				<input class="Radius" type="text" name="Radius" /><br>
-<!--			<input type="datetime-local" name="StartTime"><br>
-				<input type="datetime-local" name="WayTime"><br> 		-->
+				<input class="ltta" type="text" name="latitudeA" /><br>
+				<input class="lgta" type="text" name="longitudeA" /><br>
+				<input class="lttb" type="text" name="latitudeB" /><br>
+				<input class="lgtb" type="text" name="longitudeB" /><br>
+				<input class="Radius" type="text" name="radius" /><br>
+				<input id="minTime" type="datetime-local" name="minTime"><br>
+				<input id="maxTime" type="datetime-local" name="maxTime"><br> 
+	<!--		<input class="quantity" type="text" name="quantity"><br>  -->
+				
 			</div>
 			<div class="clear"></div>
-			<input class="sendData" type="submit" name="send" value="Отправить" onclick="javascript:getData()"/>
+			<input class="sendData" type="submit" name="send" value="Send" onclick="javascript:getData()"/>
 		
 	</fieldset>
 </form>
