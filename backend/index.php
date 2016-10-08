@@ -33,6 +33,7 @@
 								$jsonFormat
 			);
 		}
+//		(new RouteAlgorithm) -> getResult();
 		?>
 	</body>
 </html>
