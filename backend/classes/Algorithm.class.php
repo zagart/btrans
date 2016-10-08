@@ -15,7 +15,30 @@ abstract class Algorithm extends StrictAccessClass {
 		return $transport;
 	}	
 	
-	public abstract function execute(Core $core, TimeLimiter $timeLimiter) : array;
+	public function execute(Core $core, TimeLimiter $timeLimiter) : array {
+		$this -> startPointTransport = $this -> findTransportByLocationAndTime(
+			$core -> getModel(),
+			$core -> getStartObject(),
+			$timeLimiter
+		);
+		$this -> endPointTransport = $this -> findTransportByLocationAndTime(
+			$core -> getModel(),
+			$core -> getEndObject(),
+			$timeLimiter
+		);
+		echo "Start locations found: ";
+		echo sizeof($this -> startPointTransport);
+		echo ".<br/>";
+		echo "End locations found: ";
+		echo sizeof($this -> endPointTransport);
+		echo ".<br/>";
+		echo "<br/>";
+		$this -> groupTransportByClassLogic($this -> startPointTransport);
+		$this -> groupTransportByClassLogic($this -> endPointTransport);
+		$this -> filterTransportByDelayTime($this -> startPointTransport, self::DELAY_TIME);
+		$this -> filterTransportByDelayTime($this -> endPointTransport, self::DELAY_TIME);
+		return $this -> generateDirections();
+	}
 	
 	protected function findTransportByLocationAndTime(DataModel $model,
 													MapObject $target, 

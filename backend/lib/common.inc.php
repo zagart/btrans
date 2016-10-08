@@ -15,6 +15,7 @@ function printRandomDirections(int $quantity) {
 
 function printRealDirections(
 	string $filePath,
+	Algorithm $algorithm, 
 	float $latA, 
 	float $lngA,	
 	float $latB, 
@@ -46,7 +47,7 @@ function printRealDirections(
 	$current = time() - $time;
 	echo "<h2>Core configured at $current sec.</h2><br/>";
 	$core -> process(
-		new IdAlgorithm(),
+		$algorithm,
 		new TimeLimiter($minTime, $maxTime)
 	);
 	$current = time() - $time;

@@ -19,10 +19,11 @@
 			$latB = $_POST["latitudeB"];
 			$lngB = $_POST["longitudeB"];
 			$radius = $_POST["radius"];;
-			$minTime = strtotime($_POST["minTime"]);
-			$maxTime = strtotime($_POST["maxTime"]);
+			$minTime = $_POST["minTime"];
+			$maxTime = $_POST["maxTime"];
 			$jsonFormat = true;
 			printRealDirections(SOURCE_FILE_PATH, 
+								new RouteAlgorithm(),
 								$latA, 
 								$lngA,	
 								$latB, 

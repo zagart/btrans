@@ -52,8 +52,8 @@
 				<input class="lttb" type="text" name="latitudeB" /><br>
 				<input class="lgtb" type="text" name="longitudeB" /><br>
 				<input class="Radius" type="text" name="radius" /><br>
-				<input id="minTime" type="datetime-local" name="minTime"><br>
-				<input id="maxTime" type="datetime-local" name="maxTime"><br> 
+				<input id="minTime" type="text" name="minTime"><br>
+				<input id="maxTime" type="text" name="maxTime"><br> 
 	<!--		<input class="quantity" type="text" name="quantity"><br>  -->
 				
 			</div>
