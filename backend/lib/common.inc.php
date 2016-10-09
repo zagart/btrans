@@ -57,11 +57,13 @@ function printRealDirections(
 		$size = sizeof($core -> getDirections());
 		echo "<h2>$size direction(s) generated.</h2><hr/>";
 	}
+	$directionArr = [];
 	foreach ($core -> getDirections() as $direction) {
 		if ($jsonFormat) {
-			printObject(json_encode($direction -> toArray()));
+			array_push($directionArr, $direction -> toArray());
 		} else {
 			printObject($direction -> toArray());
 		}
 	}
+	return $directionArr;
 }
