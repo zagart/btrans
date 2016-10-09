@@ -14,6 +14,7 @@
 		<h1>Data parser index.php</h1>
 		<?php 
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+			
 			$latA = $_POST["latitudeA"];
 			$lngA = $_POST["longitudeA"];
 			$latB = $_POST["latitudeB"];
@@ -22,7 +23,7 @@
 			$minTime = strtotime($_POST["minTime"]);
 			$maxTime = strtotime($_POST["maxTime"]);
 			$jsonFormat = true;
-			printRealDirections(SOURCE_FILE_PATH, 
+			$json_file = json_encode(printRealDirections(SOURCE_FILE_PATH, 
 								$latA, 
 								$lngA,	
 								$latB, 
@@ -31,7 +32,8 @@
 								$minTime,
 								$maxTime,
 								$jsonFormat
-			);
+			));
+			file_put_contents("data.json", $json_file);
 		}
 		?>
 	</body>
