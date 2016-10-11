@@ -4,13 +4,32 @@ class TransportFilter extends Filter {
 	
 	const BY_TIMESTAMP = 0;
 	
-	public function applyFilters(array &$transport, array $constants) : array {
+	//function breaks object-oriented model and split its elements (Transport objects)
+	//after splitting they will be sorted by timestamp
+	public function applyFilters(array $transport, array $constants) : array {
+		$filteredTransport = array();
 		foreach ($constants as $constant) {
 			if ($constant === BY_TIMESTAMP) {
-				return $this -> filterByTimestamp($transport);
+				$filteredTransport = $this -> filterByTimestamp($transport);
+				usort($filteredTransport, "compareByTime");
 			}
 		}
-		return array();
+		return $filteredTransport;
+	}
+	
+	private function compareByTime($a, $b) : int {
+		if ($a -> getTimestamp() == $b -> getTimestamp()) {
+	//        echo "a ({$a -> t}) is same priority as b ({$b -> t}), keeping the same<hr/>";
+			return 0;
+		}
+		else if ($a -> getTimestamp() > $b -> getTimestamp()) {
+	//        echo "a ({$a -> t}) is higher priority than b ({$b -> t}), moving b down array<hr/>";
+			return 1;
+		}
+		else {
+	//        echo "b ({$b -> t}) is higher priority than a ({$a -> t}), moving b up array<hr/>";                
+			return -1;
+		}
 	}
 	
 	private function filterByTimestamp(array $transport) : array {
