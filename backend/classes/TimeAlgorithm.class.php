@@ -55,11 +55,11 @@ class TimeAlgorithm extends Algorithm {
 		$filter = new TransportFilter();
 		$criterions = array();
 		$criterions[] = TransportFilter::BY_TIMESTAMP;
-		$transport = $filter -> applyFilters();
+		$transport = $filter -> applyFilters($transport, $criterions);
 		for ($i = 0; $i < sizeof($transport) - 1; $i++) {
 			for ($j = 0; $j < sizeof($transport) - 1; $j++) {
 				$idI = $transport[$i] -> getId();
-				$idJ = $transport[$i] -> getId();
+				$idJ = $transport[$j] -> getId();
 				$timestampI = $transport[$i] -> getTimestamp();
 				$timestampJ = $transport[$j] -> getTimestamp();
 				if ($idI === $idJ) {
@@ -71,6 +71,7 @@ class TimeAlgorithm extends Algorithm {
 				}
 			}
 		}
+		debug($transport);
 	}
 	
 }

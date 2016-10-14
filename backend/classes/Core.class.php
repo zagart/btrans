@@ -62,6 +62,7 @@ class Core extends StrictAccessClass {
 		if ($file) {
 			$this -> data = json_decode($file);
 		} 
+		unset($file);
 	}
 	
 	public function process(Algorithm $logic, TimeLimiter $timeLimiter) {

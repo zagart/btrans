@@ -23,7 +23,7 @@
 			$maxTime = $_POST["maxTime"];
 			$jsonFormat = true;
 			printRealDirections(SOURCE_FILE_PATH, 
-								new RouteAlgorithm(),
+								new IdAlgorithm(),
 								$latA, 
 								$lngA,	
 								$latB, 

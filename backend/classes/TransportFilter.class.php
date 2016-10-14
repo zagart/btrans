@@ -9,20 +9,26 @@ class TransportFilter extends Filter {
 	public function applyFilters(array $transport, array $constants) : array {
 		$filteredTransport = array();
 		foreach ($constants as $constant) {
-			if ($constant === BY_TIMESTAMP) {
+			if ($constant === self::BY_TIMESTAMP) {
 				$filteredTransport = $this -> filterByTimestamp($transport);
-				usort($filteredTransport, "compareByTime");
+				usort($filteredTransport, array("TransportFilter", "compareByTime"));
+				echo("<h1>Filters applied.</h1>");
+				debug($transport);
 			}
 		}
 		return $filteredTransport;
 	}
 	
-	private function compareByTime($a, $b) : int {
-		if ($a -> getTimestamp() == $b -> getTimestamp()) {
+	private static function compareByTime($a, $b) : int {
+		$a = $a -> getGpsNavigator -> getLocationsArchive();
+		$a = $a[0] -> getTimestamp();
+		$b = $b -> getGpsNavigator -> getLocationsArchive();
+		$b = $b[0] -> getTimestamp();
+		if ($a == $b) {
 	//        echo "a ({$a -> t}) is same priority as b ({$b -> t}), keeping the same<hr/>";
 			return 0;
 		}
-		else if ($a -> getTimestamp() > $b -> getTimestamp()) {
+		else if ($a > $b) {
 	//        echo "a ({$a -> t}) is higher priority than b ({$b -> t}), moving b down array<hr/>";
 			return 1;
 		}
@@ -53,11 +59,12 @@ class TransportFilter extends Filter {
 			"gpsId" => $transport -> getGpsNavigator() -> getId(), 
 			"route" => $transport -> getRoute(), 
 			"type" => $transport -> getType(),
+			"location" => null,
 		);
 		$locations = $transport -> getGpsNavigator() -> getLocationsArchive();
 		foreach ($locations as $location) {
-			$newInstance = clone $instance;
-			$newInstance["location"] -> $location;
+			$newInstance = $instance;
+			$newInstance["location"] = $location;
 			$multipliedTransport[] = $newInstance;
 		}
 		return $multipliedTransport;
