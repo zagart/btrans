@@ -1,6 +1,10 @@
 <?php
 
-class IdAlgorithm extends Algorithm {
+class RouteAlgorithm extends Algorithm {
+	
+//	const DELAY_TIME = 180;
+//	protected $startPointTransport;
+//	protected $endPointTransport;
 	
 	protected function generateDirections() : array {
 		$directions = array();
@@ -10,8 +14,8 @@ class IdAlgorithm extends Algorithm {
 		for ($i = 0; $i < sizeof($this -> startPointTransport); $i++) {
 			for ($j = 0; $j < sizeof($this -> endPointTransport); $j++) {
 				if (
-					$this -> startPointTransport[$i] -> getGpsNavigator() -> getId() ==
-					$this -> endPointTransport[$j] -> getGpsNavigator() -> getId()
+					$this -> startPointTransport[$i] -> getRoute() ==
+					$this -> endPointTransport[$j] -> getRoute()
 				   ) {
 					$direction = new Direction(
 						$this -> startPointTransport[$i], 
@@ -31,13 +35,13 @@ class IdAlgorithm extends Algorithm {
 		return $directions;
 	} 
 
-	//id specific grouping
+	//route specific grouping
 	protected function groupTransportByClassLogic(array &$transport) {
 		for ($i = 0; $i < sizeof($transport) - 1; $i++) {
 			for ($j = $i + 1; $j < sizeof($transport); $j++) {
-				$gpsIdI = $transport[$i] -> getGpsNavigator() -> getId();
-				$gpsIdJ = $transport[$j] -> getGpsNavigator() -> getId();
-				if ($gpsIdI === $gpsIdJ) {
+				$routeI = $transport[$i] -> getRoute();
+				$routeJ = $transport[$j] -> getRoute();
+				if ($routeI === $routeJ) {
 					$transport[$i] -> addGpsLocations($transport[$j]);
 					unset($transport[$j]);
 					$transport = array_values($transport);

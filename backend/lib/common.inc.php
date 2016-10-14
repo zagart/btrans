@@ -6,6 +6,12 @@ function printObject($object) {
 	echo "</h4></pre>";
 }
 
+function debug($object) {
+	echo "<pre><h4>";
+	print_r($object);
+	echo "</h4></pre>";
+}
+
 
 function printRandomDirections(int $quantity) {
 	for ($i = 0; $i < $quantity; $i++) {
@@ -15,6 +21,7 @@ function printRandomDirections(int $quantity) {
 
 function printRealDirections(
 	string $filePath,
+	Algorithm $algorithm, 
 	float $latA, 
 	float $lngA,	
 	float $latB, 
@@ -46,7 +53,7 @@ function printRealDirections(
 	$current = time() - $time;
 	echo "<h2>Core configured at $current sec.</h2><br/>";
 	$core -> process(
-		new IdAlgorithm(),
+		$algorithm,
 		new TimeLimiter($minTime, $maxTime)
 	);
 	$current = time() - $time;
