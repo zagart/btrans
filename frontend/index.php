@@ -7,72 +7,8 @@
 	<title>SetJS</title>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-	<script type="text/javascript">
-	
-		
-		var start_time = [];
-		var end_time = [];
-	
-	function getData() {
-		$('#myForm').submit(function(e){
-			e.preventDefault();
-			$.ajax({
-				type: 'POST',
-				url: "http://btrans/backend/index.php",
-				data: $(this).serialize(),
-				success: function() {
-					$.get("http://btrans/backend/data.json", success, "json");
-				},
-				error: function() {
-					alert("Ошибка");
-				}
-			});
-		});
-	}
-	function success(data) {
-		
-		$.each(data,function(key, val){
-			start_time.push(val.startLocation.timestamp);
-			end_time.push(val.endLocation.timestamp);
-			
-		});
-		google.charts.load('current', {packages: ['corechart', 'line']});
-		google.charts.setOnLoadCallback(drawBasic);
-		//$('#msg').html(end_time.join('<br>'));
-		//$('#msg').html(data);
-	}
-	function drawBasic() {
-	  var data = new google.visualization.DataTable();
-      data.addColumn('number', 'X');
-      data.addColumn('number', 'Минуты');
-	  
-	  for (var x = 0; x<start_time.length; x++) {
-		  for (var y = 0; y<end_time.length; y++) {
-			  //start_time[x] = new Date(start_time[x] * 1000);
-			  //end_time[y] = new Date(end_time[y] * 1000);
-			  var interval = (end_time[y] - start_time[x]) / 60;
-			  alert(interval);
-			  data.addRows([
-				[new Date(start_time[x] * 1000).getHours(), interval]
-			  ]);
-			  x++;
-		  }
-	  }
-     
-      var options = {
-        hAxis: {
-          title: 'Time'
-        },
-        vAxis: {
-          title: 'Popularity'
-        }
-      };
-
-      var chart = new google.visualization.LineChart(document.getElementById('chart'));
-
-      chart.draw(data, options);
-	}
-	</script>
+	<script type="text/javascript" src="lib/ajax.js"></script>
+	<script type="text/javascript" src="lib/chart.js"></script>
 </head>
 <body>
 <form method="post" id="myForm" action="" >
@@ -95,9 +31,9 @@
 				<input class="lgtb" type="text" name="longitudeB" value="23.8235" /><br>
 				<input class="Radius" type="text" name="radius" value="20" /><br>
                 
-				<input id="minTime" type="datetime-local" name="minTime"><br>
-				<input id="maxTime" type="datetime-local" name="maxTime"><br> 
-				<input class="quantity" type="text" name="quantity"><br>  
+				<input id="minTime" type="text" name="minTime" value = "1474848000"><br>
+				<input id="maxTime" type="text" name="maxTime" value = "1477785600"><br> 
+				<!--<input class="quantity" type="text" name="quantity"><br> --> 
 				
 			</div>
 			<div class="clear"></div>
@@ -106,5 +42,6 @@
 	</fieldset>
 </form>
 	<div id="chart"></div>
+	<div id="msg"></div>
 </body>
 </html>
