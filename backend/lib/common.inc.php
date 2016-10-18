@@ -81,6 +81,8 @@ function printRealDirections(
 			array_push($directionArr, $direction -> toArray());
 		} else {
 			printObject($direction -> toArray());
+			$interval = $direction -> getEndLocation() -> getTimestamp() - $direction -> getStartLocation() -> getTimestamp();
+			echo "<h4>Interval: $interval sec.</h4><hr/>";
 		}
 	}
 	return $directionArr;
