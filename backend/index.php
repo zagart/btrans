@@ -19,9 +19,9 @@
 			$lngA = $_POST["longitudeA"];
 			$latB = $_POST["latitudeB"];
 			$lngB = $_POST["longitudeB"];
-			$radius = $_POST["radius"];;
-			$minTime = strtotime($_POST["minTime"]);
-			$maxTime = strtotime($_POST["maxTime"]);
+			$radius = $_POST["radius"];
+			$minTime = $_POST["minTime"];
+			$maxTime = $_POST["maxTime"];
 			$jsonFormat = true;
 			$json_file = json_encode(printRealDirections(SOURCE_FILE_PATH, 
 								$latA, 
