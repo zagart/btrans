@@ -18,15 +18,13 @@
 			$lngA = $_POST["longitudeA"];
 			$latB = $_POST["latitudeB"];
 			$lngB = $_POST["longitudeB"];
-<<<<<<< HEAD
 			$radius = $_POST["radius"];;
-=======
 			$radius = $_POST["radius"];
->>>>>>> master
 			$minTime = $_POST["minTime"];
 			$maxTime = $_POST["maxTime"];
 			$jsonFormat = true;
 			$json_file = json_encode(printRealDirections(SOURCE_FILE_PATH, 
+								new IdAlgorithm(),
 								$latA, 
 								$lngA,	
 								$latB, 
@@ -36,7 +34,7 @@
 								$maxTime,
 								$jsonFormat
 			));
-//			file_put_contents("data.json", $json_file);
+			file_put_contents("data.json", $json_file);
 		}
 		?>
 	</body>

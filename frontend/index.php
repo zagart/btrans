@@ -37,8 +37,7 @@
 				
 			</div>
 			<div class="clear"></div>
-<!--			<input class="sendData" type="submit" name="send" value="Send" onclick="javascript:getData()"/>-->
-			<input class="sendData" type="submit" name="send" value="Send"/>
+			<input class="sendData" type="submit" name="send" value="Send" onclick="javascript:getData()"/>
 		
 	</fieldset>
 </form>
