@@ -18,7 +18,11 @@
 			$lngA = $_POST["longitudeA"];
 			$latB = $_POST["latitudeB"];
 			$lngB = $_POST["longitudeB"];
+<<<<<<< HEAD
 			$radius = $_POST["radius"];;
+=======
+			$radius = $_POST["radius"];
+>>>>>>> master
 			$minTime = $_POST["minTime"];
 			$maxTime = $_POST["maxTime"];
 			$jsonFormat = true;
