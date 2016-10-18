@@ -55,6 +55,17 @@ abstract class Algorithm extends StrictAccessClass {
 				$transport[] = $this -> buildTransport($model, $index);
 			}			
 		}
+//		usort($transport, function ($transportA, $transportB) {
+//			$a -> $transportA -> getGpsNavigator() -> getAverageLocation() -> getTimestamp(); 
+//			$b -> $transportB -> getGpsNavigator() -> getAverageLocation() -> getTimestamp(); 
+//			if ($a < $b) {
+//				return -1;
+//			} else if ($a > $b) {
+//				return 1;
+//			} else {
+//				return 0;
+//			}
+//		});
 		return $transport;
 	}
 	

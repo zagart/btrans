@@ -64,8 +64,19 @@ function printRealDirections(
 		$size = sizeof($core -> getDirections());
 		echo "<h2>$size direction(s) generated.</h2><hr/>";
 	}
-	$directionArr = [];
-	foreach ($core -> getDirections() as $direction) {
+	$directionArr = $core -> getDirections();
+	usort($directionArr, function ($a, $b) {
+		$startTime = $a -> getEndLocation() -> getTimestamp() - $a -> getStartLocation() -> getTimestamp();
+		$endTime = $b -> getEndLocation() -> getTimestamp() - $b -> getStartLocation() -> getTimestamp();
+		if ($startTime < $endTime) {
+			return -1;
+		} else if ($startTime > $endTime) {
+			return 1;
+		} else {
+			return 0;
+		}
+	});
+	foreach ($directionArr as $direction) {
 		if ($jsonFormat) {
 			array_push($directionArr, $direction -> toArray());
 		} else {

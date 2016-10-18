@@ -14,16 +14,16 @@
 		<h1>Data parser index.php</h1>
 		<?php 
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-			
 			$latA = $_POST["latitudeA"];
 			$lngA = $_POST["longitudeA"];
 			$latB = $_POST["latitudeB"];
 			$lngB = $_POST["longitudeB"];
-			$radius = $_POST["radius"];;
-			$minTime = strtotime($_POST["minTime"]);
-			$maxTime = strtotime($_POST["maxTime"]);
+			$radius = $_POST["radius"];
+			$minTime = $_POST["minTime"];
+			$maxTime = $_POST["maxTime"];
 			$jsonFormat = true;
 			$json_file = json_encode(printRealDirections(SOURCE_FILE_PATH, 
+								new IdAlgorithm(),
 								$latA, 
 								$lngA,	
 								$latB, 
