@@ -18,7 +18,6 @@
 			$lngA = $_POST["longitudeA"];
 			$latB = $_POST["latitudeB"];
 			$lngB = $_POST["longitudeB"];
-			$radius = $_POST["radius"];;
 			$radius = $_POST["radius"];
 			$minTime = $_POST["minTime"];
 			$maxTime = $_POST["maxTime"];
