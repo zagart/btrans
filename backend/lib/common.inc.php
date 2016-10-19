@@ -66,11 +66,11 @@ function printRealDirections(
 	}
 	$directionArr = $core -> getDirections();
 	usort($directionArr, function ($a, $b) {
-		$startTime = $a -> getEndLocation() -> getTimestamp() - $a -> getStartLocation() -> getTimestamp();
-		$endTime = $b -> getEndLocation() -> getTimestamp() - $b -> getStartLocation() -> getTimestamp();
-		if ($startTime < $endTime) {
+		$a = $a -> getStartLocation() -> getTimestamp();
+		$b = $b -> getStartLocation() -> getTimestamp();
+		if ($a < $b) {
 			return -1;
-		} else if ($startTime > $endTime) {
+		} else if ($a > $b) {
 			return 1;
 		} else {
 			return 0;
