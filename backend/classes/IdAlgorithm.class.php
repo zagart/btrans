@@ -9,9 +9,13 @@ class IdAlgorithm extends Algorithm {
 		}
 		for ($i = 0; $i < sizeof($this -> startPointTransport); $i++) {
 			for ($j = 0; $j < sizeof($this -> endPointTransport); $j++) {
+				$idI = $this -> startPointTransport[$i] -> getGpsNavigator() -> getId();
+				$idJ = $this -> endPointTransport[$j] -> getGpsNavigator() -> getId();
+				$timestampI = $this -> startPointTransport[$i] -> getGpsNavigator() -> getAverageLocation() -> getTimestamp();
+				$timestampJ = $this -> endPointTransport[$j] -> getGpsNavigator() -> getAverageLocation() -> getTimestamp();
 				if (
-					$this -> startPointTransport[$i] -> getGpsNavigator() -> getId() ==
-					$this -> endPointTransport[$j] -> getGpsNavigator() -> getId()
+					($idI == $idJ) && ($timestampI < $timestampJ) && 
+					($timestampJ - $timestampI < TimeLimiter::HOUR)
 				   ) {
 					$direction = new Direction(
 						$this -> startPointTransport[$i], 
@@ -23,8 +27,7 @@ class IdAlgorithm extends Algorithm {
 					$j > 0 ? $j-- : $j;
 					$this -> startPointTransport = array_values($this -> startPointTransport);
 					$this -> endPointTransport = array_values($this -> endPointTransport);
-					$directions[] = $direction; 
-
+					$directions[] = $direction;
 				}		
 			}
 		}
