@@ -2,7 +2,7 @@
 
 abstract class Algorithm extends StrictAccessClass {
 	
-	const DELAY_TIME = 180;
+	const DELAY_TIME = 60;
 	protected $startPointTransport;
 	protected $endPointTransport;
 				
@@ -38,14 +38,14 @@ abstract class Algorithm extends StrictAccessClass {
 		$this -> groupTransportByClassLogic($this -> endPointTransport);
 		$this -> filterTransportByDelayTime($this -> startPointTransport, self::DELAY_TIME);
 		$this -> filterTransportByDelayTime($this -> endPointTransport, self::DELAY_TIME);
+		$this -> sortTransportByFirstLocationTime($this -> startPointTransport);
+		$this -> sortTransportByFirstLocationTime($this -> endPointTransport);
 		return $this -> generateDirections();
 	}
 	
-	public function getIdentifiedLocations() : string {
-		debug($this -> startPointTransport);
+	private function getIdentifiedLocations() : string {
 		$points1 = $this -> identifiedPointsToArray($this -> startPointTransport);
 		$points2 = $this -> identifiedPointsToArray($this -> endPointTransport);
-		debug($points1);
 		$points = array_merge($points1, $points2);
 		$points = json_encode($points);
 		file_put_contents("points.json", $points);
@@ -122,6 +122,22 @@ abstract class Algorithm extends StrictAccessClass {
 			$transportByLocationsGroup[] = $transport;
 		}
 		return $transportByLocationsGroup;
+	}
+	
+	protected function sortTransportByFirstLocationTime(array &$transport) : array {
+		$comparator = function ($a, $b) {
+			$a = $a -> getGpsNavigator() -> getAverageLocation() -> getTimestamp();
+			$b = $b -> getGpsNavigator() -> getAverageLocation() -> getTimestamp();
+			if ($a < $b) {
+				return -1;
+			} else if ($a > $b) {
+				return 1;
+			} else {
+				return 0;
+			}			
+		};
+		usort($transport, $comparator);
+		return $transport;
 	}
 	
 }

@@ -7,9 +7,9 @@ function printObject($object) {
 }
 
 function debug($object) {
-	echo "<pre><h4>";
+	echo "<hr/><h2>Debug</h2><pre><h3>";
 	print_r($object);
-	echo "</h4></pre>";
+	echo "</h3></pre><hr/>";
 }
 
 
@@ -81,8 +81,7 @@ function printRealDirections(
 			array_push($directionArr, $direction -> toArray());
 		} else {
 			printObject($direction -> toArray());
-			$interval = $direction -> getEndLocation() -> getTimestamp() - $direction -> getStartLocation() -> getTimestamp();
-			echo "<h4>Interval: $interval sec.</h4><hr/>";
+			echo "<h3>Interval: {$direction -> getInterval()} sec.</h3><hr/>";
 		}
 	}
 	return $directionArr;
