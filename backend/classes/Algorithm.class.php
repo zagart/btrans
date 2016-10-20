@@ -33,11 +33,38 @@ abstract class Algorithm extends StrictAccessClass {
 		echo sizeof($this -> endPointTransport);
 		echo ".<br/>";
 		echo "<br/>";
+		$this -> getIdentifiedLocations();
 		$this -> groupTransportByClassLogic($this -> startPointTransport);
 		$this -> groupTransportByClassLogic($this -> endPointTransport);
 		$this -> filterTransportByDelayTime($this -> startPointTransport, self::DELAY_TIME);
 		$this -> filterTransportByDelayTime($this -> endPointTransport, self::DELAY_TIME);
 		return $this -> generateDirections();
+	}
+	
+	public function getIdentifiedLocations() : string {
+		debug($this -> startPointTransport);
+		$points1 = $this -> identifiedPointsToArray($this -> startPointTransport);
+		$points2 = $this -> identifiedPointsToArray($this -> endPointTransport);
+		debug($points1);
+		$points = array_merge($points1, $points2);
+		$points = json_encode($points);
+		file_put_contents("points.json", $points);
+		return $points;
+	}
+	
+	private function identifiedPointsToArray(array $identifiedPoints) : array {
+		$pointsArray = array();
+		foreach ($identifiedPoints as $transport) {
+			$point = array();
+			$archive = $transport -> getGpsNavigator() -> getLocationsArchive();
+			$lat = $archive[0] -> getLatitude();
+			$lng = $archive[0] -> getLongitude();
+			$id_gps = $transport -> getGpsNavigator() -> getId();
+			$route = $transport -> getRoute();
+			$point = array($lat, $lng, $id_gps, $route);
+			$pointsArray[] = $point;
+		}
+		return $pointsArray;
 	}
 	
 	protected function findTransportByLocationAndTime(DataModel $model,
