@@ -42,10 +42,8 @@ abstract class Algorithm extends StrictAccessClass {
 	}
 	
 	public function getIdentifiedLocations() : string {
-		debug($this -> startPointTransport);
 		$points1 = $this -> identifiedPointsToArray($this -> startPointTransport);
 		$points2 = $this -> identifiedPointsToArray($this -> endPointTransport);
-		debug($points1);
 		$points = array_merge($points1, $points2);
 		$points = json_encode($points);
 		file_put_contents("points.json", $points);
