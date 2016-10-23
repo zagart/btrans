@@ -8,11 +8,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>#dataParser</title>		
+		<title>#dataParser</title>
 	</head>
 	<body>
 		<h1>Data parser index.php</h1>
-		<?php 
+		<?php
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$latA = $_POST["latitudeA"];
 			$lngA = $_POST["longitudeA"];
@@ -21,12 +21,12 @@
 			$radius = $_POST["radius"];
 			$minTime = $_POST["minTime"];
 			$maxTime = $_POST["maxTime"];
-			$jsonFormat = true;
-			$json_file = json_encode(printRealDirections(SOURCE_FILE_PATH, 
+			$jsonFormat = false;
+			$json_file = json_encode(printRealDirections(SOURCE_FILE_PATH,
 								new IdAlgorithm(),
-								$latA, 
-								$lngA,	
-								$latB, 
+								$latA,
+								$lngA,
+								$latB,
 								$lngB,
 								$radius,
 								$minTime,
