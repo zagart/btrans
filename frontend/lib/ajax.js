@@ -9,19 +9,21 @@ function getData() {
 					$.get("http://btrans/backend/data.json", success, "json");
 				},
 				error: function() {
-					alert("ќшибка");
+					alert("Ошибка");
 				}
 			});
 		});
 	}
 	function success(data) {
 		$.each(data,function(key, val){
-			start_time.push(val.startLocation.timestamp);
-			end_time.push(val.endLocation.timestamp);
-		});
+			if(val.directionId) {
+				start_time.push(val.startLocation.timestamp);
+				end_time.push(val.endLocation.timestamp);
+			}
+	});
 		google.charts.load('current', {packages: ['corechart', 'line']});
 		google.charts.setOnLoadCallback(drawBasic);
-		
+
 		var msg = document.getElementById('msg');
 		msg.innerHTML = JSON.stringify(data);
 	}
