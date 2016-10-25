@@ -7,9 +7,9 @@ function printObject($object) {
 }
 
 function debug($object) {
-	echo "<pre><h4>";
+	echo "<hr/><h2>Debug</h2><pre><h3>";
 	print_r($object);
-	echo "</h4></pre>";
+	echo "</h3></pre><hr/>";
 }
 
 
@@ -66,11 +66,11 @@ function printRealDirections(
 	}
 	$directionArr = $core -> getDirections();
 	usort($directionArr, function ($a, $b) {
-		$startTime = $a -> getEndLocation() -> getTimestamp() - $a -> getStartLocation() -> getTimestamp();
-		$endTime = $b -> getEndLocation() -> getTimestamp() - $b -> getStartLocation() -> getTimestamp();
-		if ($startTime < $endTime) {
+		$a = $a -> getStartLocation() -> getTimestamp();
+		$b = $b -> getStartLocation() -> getTimestamp();
+		if ($a < $b) {
 			return -1;
-		} else if ($startTime > $endTime) {
+		} else if ($a > $b) {
 			return 1;
 		} else {
 			return 0;
@@ -81,6 +81,7 @@ function printRealDirections(
 			array_push($directionArr, $direction -> toArray());
 		} else {
 			printObject($direction -> toArray());
+			echo "<h3>Interval: {$direction -> getInterval()} sec.</h3><hr/>";
 		}
 	}
 	return $directionArr;

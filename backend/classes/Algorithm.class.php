@@ -2,7 +2,7 @@
 
 abstract class Algorithm extends StrictAccessClass {
 	
-	const DELAY_TIME = 180;
+	const DELAY_TIME = 60;
 	protected $startPointTransport;
 	protected $endPointTransport;
 				
@@ -33,11 +33,38 @@ abstract class Algorithm extends StrictAccessClass {
 		echo sizeof($this -> endPointTransport);
 		echo ".<br/>";
 		echo "<br/>";
+		$this -> getIdentifiedLocations();
 		$this -> groupTransportByClassLogic($this -> startPointTransport);
 		$this -> groupTransportByClassLogic($this -> endPointTransport);
 		$this -> filterTransportByDelayTime($this -> startPointTransport, self::DELAY_TIME);
 		$this -> filterTransportByDelayTime($this -> endPointTransport, self::DELAY_TIME);
+		$this -> sortTransportByFirstLocationTime($this -> startPointTransport);
+		$this -> sortTransportByFirstLocationTime($this -> endPointTransport);
 		return $this -> generateDirections();
+	}
+	
+	private function getIdentifiedLocations() : string {
+		$points1 = $this -> identifiedPointsToArray($this -> startPointTransport);
+		$points2 = $this -> identifiedPointsToArray($this -> endPointTransport);
+		$points = array_merge($points1, $points2);
+		$points = json_encode($points);
+		file_put_contents("points.json", $points);
+		return $points;
+	}
+	
+	private function identifiedPointsToArray(array $identifiedPoints) : array {
+		$pointsArray = array();
+		foreach ($identifiedPoints as $transport) {
+			$point = array();
+			$archive = $transport -> getGpsNavigator() -> getLocationsArchive();
+			$lat = $archive[0] -> getLatitude();
+			$lng = $archive[0] -> getLongitude();
+			$id_gps = $transport -> getGpsNavigator() -> getId();
+			$route = $transport -> getRoute();
+			$point = array($lat, $lng, $id_gps, $route);
+			$pointsArray[] = $point;
+		}
+		return $pointsArray;
 	}
 	
 	protected function findTransportByLocationAndTime(DataModel $model,
@@ -55,17 +82,6 @@ abstract class Algorithm extends StrictAccessClass {
 				$transport[] = $this -> buildTransport($model, $index);
 			}			
 		}
-//		usort($transport, function ($transportA, $transportB) {
-//			$a -> $transportA -> getGpsNavigator() -> getAverageLocation() -> getTimestamp(); 
-//			$b -> $transportB -> getGpsNavigator() -> getAverageLocation() -> getTimestamp(); 
-//			if ($a < $b) {
-//				return -1;
-//			} else if ($a > $b) {
-//				return 1;
-//			} else {
-//				return 0;
-//			}
-//		});
 		return $transport;
 	}
 	
@@ -106,6 +122,22 @@ abstract class Algorithm extends StrictAccessClass {
 			$transportByLocationsGroup[] = $transport;
 		}
 		return $transportByLocationsGroup;
+	}
+	
+	protected function sortTransportByFirstLocationTime(array &$transport) : array {
+		$comparator = function ($a, $b) {
+			$a = $a -> getGpsNavigator() -> getAverageLocation() -> getTimestamp();
+			$b = $b -> getGpsNavigator() -> getAverageLocation() -> getTimestamp();
+			if ($a < $b) {
+				return -1;
+			} else if ($a > $b) {
+				return 1;
+			} else {
+				return 0;
+			}			
+		};
+		usort($transport, $comparator);
+		return $transport;
 	}
 	
 }
