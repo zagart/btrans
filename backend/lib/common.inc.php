@@ -7,24 +7,24 @@ function printObject($object) {
 }
 
 function debug($object) {
-	echo "<hr/><h2>Debug</h2><pre><h3>";
+	echo "<pre><h4>";
 	print_r($object);
-	echo "</h3></pre><hr/>";
+	echo "</h4></pre>";
 }
 
 
 function printRandomDirections(int $quantity) {
 	for ($i = 0; $i < $quantity; $i++) {
-		printObject(json_encode((new RandomDirection()) -> toArray()));	
+		printObject(json_encode((new RandomDirection()) -> toArray()));
 	}
 }
 
 function printRealDirections(
 	string $filePath,
-	Algorithm $algorithm, 
-	float $latA, 
-	float $lngA,	
-	float $latB, 
+	Algorithm $algorithm,
+	float $latA,
+	float $lngA,
+	float $latB,
 	float $lngB,
 	int $radius,
 	int $minTime,
@@ -46,8 +46,8 @@ function printRealDirections(
 	$startObject = new MapRound($startLocation, $radius);
 	$endObject = new MapRound($endLocation, $radius);
 	$core -> setUpInitialData(
-		$startObject, 
-		$endObject, 
+		$startObject,
+		$endObject,
 		Core::OBJECT_TYPE_ROUND
 	);
 	$current = time() - $time;
@@ -66,22 +66,22 @@ function printRealDirections(
 	}
 	$directionArr = $core -> getDirections();
 	usort($directionArr, function ($a, $b) {
-		$a = $a -> getStartLocation() -> getTimestamp();
-		$b = $b -> getStartLocation() -> getTimestamp();
-		if ($a < $b) {
+		$startTime = $a -> getStartLocation() -> getTimestamp();
+		$endTime = $b -> getStartLocation() -> getTimestamp();
+		if ($startTime < $endTime) {
 			return -1;
-		} else if ($a > $b) {
+		} else if ($startTime > $endTime) {
 			return 1;
 		} else {
 			return 0;
 		}
 	});
 	foreach ($directionArr as $direction) {
-		if ($jsonFormat) {
+		if (!$jsonFormat) {
 			array_push($directionArr, $direction -> toArray());
+			printObject($direction -> toArray());
 		} else {
 			printObject($direction -> toArray());
-			echo "<h3>Interval: {$direction -> getInterval()} sec.</h3><hr/>";
 		}
 	}
 	return $directionArr;
