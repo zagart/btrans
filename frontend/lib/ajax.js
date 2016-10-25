@@ -1,3 +1,4 @@
+	var dataJSON;
 function getData() {
 		$('#myForm').submit(function(e){
 			e.preventDefault();
@@ -9,21 +10,17 @@ function getData() {
 					$.get("http://btrans/backend/data.json", success, "json");
 				},
 				error: function() {
-					alert("Ошибка");
+					alert("ќшибка");
 				}
 			});
 		});
 	}
-	function success(data) {
-		$.each(data,function(key, val){
-			if(val.directionId) {
-				start_time.push(val.startLocation.timestamp);
-				end_time.push(val.endLocation.timestamp);
-			}
-	});
-		google.charts.load('current', {packages: ['corechart', 'line']});
-		google.charts.setOnLoadCallback(drawBasic);
 
+	function success(data) {
+
+		dataJSON = data;
+		google.charts.load('current', {packages: ['bar']});
+		google.charts.setOnLoadCallback(drawBasic);
 		var msg = document.getElementById('msg');
-		msg.innerHTML = JSON.stringify(data);
+		msg.innerHTML = JSON.stringify(dataJSON);
 	}

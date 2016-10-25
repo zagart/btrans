@@ -30,7 +30,6 @@
 				<input class="lttb" type="text" name="latitudeB" value="53.69264" /><br>
 				<input class="lgtb" type="text" name="longitudeB" value="23.8235" /><br>
 				<input class="Radius" type="text" name="radius" value="20" /><br>
-
 				<input id="minTime" type="text" name="minTime" value = "0"><br>
 				<input id="maxTime" type="text" name="maxTime" value = "1999999999"><br>
 				<!--<input class="quantity" type="text" name="quantity"><br> -->
@@ -39,11 +38,10 @@
 			<div class="clear"></div>
 			<input class="sendData" type="submit" name="send" value="Send" onclick="javascript:getData()"/>
 
-
 	</fieldset>
 </form>
 	<div id="chartHistogram"></div>
-	<div id="chartLine"></div>
+	
 	<div id="msg"></div>
 </body>
 </html>
