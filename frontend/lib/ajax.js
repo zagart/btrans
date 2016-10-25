@@ -1,3 +1,4 @@
+﻿	var dataJSON;
 function getData() {
 		$('#myForm').submit(function(e){
 			e.preventDefault();
@@ -14,14 +15,12 @@ function getData() {
 			});
 		});
 	}
+
 	function success(data) {
-		$.each(data,function(key, val){
-			start_time.push(val.startLocation.timestamp);
-			end_time.push(val.endLocation.timestamp);
-		});
-		google.charts.load('current', {packages: ['corechart', 'line']});
+
+		dataJSON = data;
+		google.charts.load('current', {packages: ['bar']});
 		google.charts.setOnLoadCallback(drawBasic);
-		
 		var msg = document.getElementById('msg');
-		msg.innerHTML = JSON.stringify(data);
+		msg.innerHTML = JSON.stringify(dataJSON);
 	}
