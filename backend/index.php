@@ -21,8 +21,8 @@
 			$radius = $_POST["radius"];
 			$minTime = $_POST["minTime"];
 			$maxTime = $_POST["maxTime"];
-			$jsonFormat = false;
-			$json_file = json_encode(printRealDirections(SOURCE_FILE_PATH,
+			$directions = getDirectionsByParameters(
+								SOURCE_FILE_PATH,
 								new IdAlgorithm(),
 								$latA,
 								$lngA,
@@ -30,10 +30,10 @@
 								$lngB,
 								$radius,
 								$minTime,
-								$maxTime,
-								$jsonFormat
-			));
-			file_put_contents("data.json", $json_file);
+								$maxTime
+			);
+			$json_directions_file = json_encode($directions);
+			file_put_contents("data.json", $json_directions_file);
 		}
 		?>
 	</body>

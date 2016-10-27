@@ -11,7 +11,7 @@
 	<script type="text/javascript" src="lib/chart.js"></script>
 </head>
 <body>
-<form method="post" id="myForm" action="" >
+<form method="post" id="myForm" action="http://btrans/backend/index.php" >
 	<fieldset>
 		<legend>Form Manager</legend>
 
@@ -36,7 +36,8 @@
 
 			</div>
 			<div class="clear"></div>
-			<input class="sendData" type="submit" name="send" value="Send" onclick="javascript:getData()"/>
+			<input class="sendData" type="submit" name="send" value="Send"/>
+<!--			<input class="sendData" type="submit" name="send" value="Send" onclick="javascript:getData()"/>-->
 
 	</fieldset>
 </form>
