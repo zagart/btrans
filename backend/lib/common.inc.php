@@ -6,17 +6,11 @@ function printObject($object) {
 	echo "</h4></pre>";
 }
 
-<<<<<<< HEAD
-function debug($object) {
-	echo "<pre><h4>";
-=======
 function debug($object, $tag = "Debug") {
 	echo "<hr/><h3>$tag</h3><pre><h4>";
->>>>>>> backend
 	print_r($object);
 	echo "</h4></pre>";
 }
-
 
 function printRandomDirections(int $quantity) {
 	for ($i = 0; $i < $quantity; $i++) {
@@ -69,12 +63,7 @@ function getDirectionsByParameters(
 		$size = sizeof($directions);
 		echo "<h2>$size direction(s) generated.</h2><hr/>"	;
 	}
-<<<<<<< HEAD
-	$directionArr = $core -> getDirections();
-	usort($directionArr, function ($a, $b) {
-=======
 	usort($directions, function ($a, $b) {
->>>>>>> backend
 		$startTime = $a -> getStartLocation() -> getTimestamp();
 		$endTime = $b -> getStartLocation() -> getTimestamp();
 		if ($startTime < $endTime) {
@@ -85,20 +74,8 @@ function getDirectionsByParameters(
 			return 0;
 		}
 	});
-<<<<<<< HEAD
-	foreach ($directionArr as $direction) {
-		if (!$jsonFormat) {
-			array_push($directionArr, $direction -> toArray());
-			printObject($direction -> toArray());
-		} else {
-			printObject($direction -> toArray());
-		}
-=======
-	$directionArr = array();
-	foreach ($directions as $direction) {
-		debug($direction, "Direction");
-		array_push($directionArr, $direction -> toArray());
->>>>>>> backend
+	foreach ($directions as &$direction) {
+		$direction = $direction -> toArray();
 	}
-	return $directionArr;
+	return $directions;
 }
