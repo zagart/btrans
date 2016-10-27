@@ -6,8 +6,13 @@ function printObject($object) {
 	echo "</h4></pre>";
 }
 
+<<<<<<< HEAD
 function debug($object) {
 	echo "<pre><h4>";
+=======
+function debug($object, $tag = "Debug") {
+	echo "<hr/><h3>$tag</h3><pre><h4>";
+>>>>>>> backend
 	print_r($object);
 	echo "</h4></pre>";
 }
@@ -19,7 +24,7 @@ function printRandomDirections(int $quantity) {
 	}
 }
 
-function printRealDirections(
+function getDirectionsByParameters(
 	string $filePath,
 	Algorithm $algorithm,
 	float $latA,
@@ -28,9 +33,8 @@ function printRealDirections(
 	float $lngB,
 	int $radius,
 	int $minTime,
-	int $maxTime,
-	bool $jsonFormat
-) {
+	int $maxTime
+) : array {
 	$core = new Core();
 	$time = time();
 	echo "<hr/><h2>Core created.</h2><br/>";
@@ -58,14 +62,19 @@ function printRealDirections(
 	);
 	$current = time() - $time;
 	echo "<h2>Core processed algorithm at $current sec.</h2><br/>";
-	if (empty($core -> getDirections())) {
+	$directions = $core -> getDirections();
+	if (empty($directions)) {
 		echo "<h2>Directions not found.</h2><hr/>";
 	} else {
-		$size = sizeof($core -> getDirections());
-		echo "<h2>$size direction(s) generated.</h2><hr/>";
+		$size = sizeof($directions);
+		echo "<h2>$size direction(s) generated.</h2><hr/>"	;
 	}
+<<<<<<< HEAD
 	$directionArr = $core -> getDirections();
 	usort($directionArr, function ($a, $b) {
+=======
+	usort($directions, function ($a, $b) {
+>>>>>>> backend
 		$startTime = $a -> getStartLocation() -> getTimestamp();
 		$endTime = $b -> getStartLocation() -> getTimestamp();
 		if ($startTime < $endTime) {
@@ -76,6 +85,7 @@ function printRealDirections(
 			return 0;
 		}
 	});
+<<<<<<< HEAD
 	foreach ($directionArr as $direction) {
 		if (!$jsonFormat) {
 			array_push($directionArr, $direction -> toArray());
@@ -83,6 +93,12 @@ function printRealDirections(
 		} else {
 			printObject($direction -> toArray());
 		}
+=======
+	$directionArr = array();
+	foreach ($directions as $direction) {
+		debug($direction, "Direction");
+		array_push($directionArr, $direction -> toArray());
+>>>>>>> backend
 	}
 	return $directionArr;
 }

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿	var dataJSON;
+=======
+	var dataJSON;
+>>>>>>> backend
 function getData() {
 		$('#myForm').submit(function(e){
 			e.preventDefault();
@@ -23,4 +27,8 @@ function getData() {
 		google.charts.setOnLoadCallback(drawBasic);
 		var msg = document.getElementById('msg');
 		msg.innerHTML = JSON.stringify(dataJSON);
+<<<<<<< HEAD
 	}
+=======
+	}
+>>>>>>> backend

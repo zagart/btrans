@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿var start_time;
+=======
+var start_time;
+>>>>>>> backend
 var interval;
 var time;
 
