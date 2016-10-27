@@ -7,7 +7,7 @@ function drawBasic() {
   var fullArr = [["Время суток,ч", "Интервал, мин"]];
 
   $.each(dataJSON,function(key, val){
-    if(val.directionId) {
+    if(val.directionId && val.interval < 240) {
       time = new Date(val.startLocation.timestamp*1000);
       start_time = time.getHours();
       interval = val.interval / 60;
