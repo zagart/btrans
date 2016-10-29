@@ -2,7 +2,7 @@
 	font-family: Arial, Geneva, sans-serif;
 }
 fieldset {
-	border: 2px solid #c1c1c1; width: 400px; margin: 15px 0 0 15px; padding: 20px 10px 0 10px;
+	border: 2px solid #c1c1c1; width: 40%; margin: 15px 0 0 15px; padding: 20px 10px 0 10px;
 }
 legend {
 	margin: 0 auto; padding: 0 5px; font-size: 18px;
@@ -14,15 +14,18 @@ legend {
 	float: right;
 }
 
-input {
+input, select {
 	margin-bottom: 10px;  border: 1px solid #4A4A4A; width: 200px;
 }
 input[type="text"], input[type="datetime-local"] {
-	padding: 3px 5px; 
+	padding: 3px 5px;
 }
-input[type="text"] {
-	 padding: 5px 5px; 
-	
+input[type="text"], select {
+	 padding: 5px 5px;
+
+}
+select {
+	width: 212px;
 }
 input:focus {
 	border: 1px solid #35a5e5;
