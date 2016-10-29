@@ -26,6 +26,9 @@ function drawBasic() {
     series: {
       0:{axis:"interval"}
     },
+    hAxis: {
+      tacks: [0,23]
+    },
     axes:{
       y:{
         interval:{label:"Интервал, мин"}
