@@ -13,9 +13,13 @@ class RouteAlgorithm extends Algorithm {
 		}
 		for ($i = 0; $i < sizeof($this -> startPointTransport); $i++) {
 			for ($j = 0; $j < sizeof($this -> endPointTransport); $j++) {
+				$routeI = $this -> startPointTransport[$i] -> getRoute();
+				$routeJ = $this -> endPointTransport[$j] -> getRoute();
+				$timestampI = $this -> startPointTransport[$i] -> getGpsNavigator() -> getAverageLocation() -> getTimestamp();
+				$timestampJ = $this -> endPointTransport[$j] -> getGpsNavigator() -> getAverageLocation() -> getTimestamp();
 				if (
-					$this -> startPointTransport[$i] -> getRoute() ==
-					$this -> endPointTransport[$j] -> getRoute()
+					($routeI == $routeJ) && ($timestampI < $timestampJ) && 
+					($timestampJ - $timestampI < Algorithm::MAX_TRAVEL_TIME)
 				   ) {
 					$direction = new Direction(
 						$this -> startPointTransport[$i], 
@@ -27,8 +31,7 @@ class RouteAlgorithm extends Algorithm {
 					$j > 0 ? $j-- : $j;
 					$this -> startPointTransport = array_values($this -> startPointTransport);
 					$this -> endPointTransport = array_values($this -> endPointTransport);
-					$directions[] = $direction; 
-
+					$directions[] = $direction;
 				}		
 			}
 		}

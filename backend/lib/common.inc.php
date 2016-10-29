@@ -63,19 +63,16 @@ function getDirectionsByParameters(
 		$size = sizeof($directions);
 		echo "<h2>$size direction(s) generated.</h2><hr/>"	;
 	}
-	usort($directions, function ($a, $b) {
-		$startTime = $a -> getStartLocation() -> getTimestamp();
-		$endTime = $b -> getStartLocation() -> getTimestamp();
-		if ($startTime < $endTime) {
-			return -1;
-		} else if ($startTime > $endTime) {
-			return 1;
-		} else {
-			return 0;
-		}
-	});
+	$condition = true;
 	foreach ($directions as &$direction) {
-		$direction = $direction -> toArray();
+		if ($condition) {
+			//		$id = $direction -> getId();
+			$route = $direction -> getTransportRoute();
+			$interval = $direction -> getInterval();
+			$time = $direction -> getStartTime() - 1475149361;
+			echo "$route: $time ($interval sec)<br/>";
+			$direction = $direction -> toArray();			
+		}
 	}
 	return $directions;
 }

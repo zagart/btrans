@@ -2,7 +2,8 @@
 
 abstract class Algorithm extends StrictAccessClass {
 	
-	const DELAY_TIME = 60;
+	const DELAY_TIME = TimeLimiter::MINUTE;
+	const MAX_TRAVEL_TIME = TimeLimiter::TEN_MINUTES;
 	protected $startPointTransport;
 	protected $endPointTransport;
 				

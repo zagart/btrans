@@ -32,7 +32,6 @@
 								$minTime,
 								$maxTime
 			);
-			debug($directions);
 			$json_directions_file = json_encode($directions);
 			file_put_contents("data.json", $json_directions_file);
 		}
