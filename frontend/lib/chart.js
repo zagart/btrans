@@ -19,7 +19,7 @@
       directionStartTime.push(time.getHours()+":"+time.getMinutes()+":"+time.getSeconds());
       directionInterval.push(Math.floor(interval) + " мин " + val.interval % 60 + " сек");
       data.addRows([
-        [{v:[time.getHours(), time.getMinutes(), time.getSeconds()]}, interval]
+        [{v:[time.getHours(), 0], f:time.getHours()+":"+time.getMinutes()+":"+time.getSeconds()}, interval]
       ]);
     }
   });
@@ -27,9 +27,12 @@
     title:'График',
     width:1300,
     height:600,
-
+    bar: {
+      groupWidth:"97%"
+    },
     hAxis: {
       title:'Time Of Day',
+
       viewWindow: {
         min: [0,0,0],
         max: [24,0,0]
