@@ -1,40 +1,60 @@
-﻿var start_time;
-var interval;
-var time;
+﻿function drawBasic() {
+  var data = new google.visualization.DataTable();
+  var time;
+  var interval;
+  var transportType = [];
+  var transportRoute = [];
+  var directionStartTime = [];
+  var directionInterval = [];
 
-function drawBasic() {
+  data.addColumn('timeofday', 'startTime');
+  data.addColumn('number', 'interval');
 
-  var fullArr = [["Время суток,ч", "Интервал, мин"]];
-
-  $.each(dataJSON,function(key, val){
-    if(val.directionId && val.interval < 240) {
-      time = new Date(val.startLocation.timestamp*1000);
-      start_time = time.getHours();
-      interval = val.interval / 60;
-      fullArr.push([start_time, interval]);
+  $.each(dataJSON, function(key, val) {
+    time = new Date(val.startTime * 1000);
+    interval = val.interval / 60;
+    if(val.directionId && interval < 4) {
+      transportRoute.push(val.transportRoute);
+      transportType.push(val.transportType);
+      directionStartTime.push(time.getHours()+":"+time.getMinutes()+":"+time.getSeconds());
+      directionInterval.push(Math.floor(interval) + " мин " + val.interval % 60 + " сек");
+      data.addRows([
+        [{v:[time.getHours(), time.getMinutes(), time.getSeconds()]}, interval]
+      ]);
     }
   });
-
-  var data = new google.visualization.arrayToDataTable(fullArr);
-
   var options = {
-    width: 1300,
-    height: 600,
-    chart: {
-      title: "График интервала по суточному времени"
-    },
-    series: {
-      0:{axis:"interval"}
-    },
+    title:'График',
+    width:1300,
+    height:600,
+
     hAxis: {
-      tacks: [0,23]
-    },
-    axes:{
-      y:{
-        interval:{label:"Интервал, мин"}
+      title:'Time Of Day',
+      viewWindow: {
+        min: [0,0,0],
+        max: [24,0,0]
       }
+    },
+    vAxis: {
+      title:'Interval, min'
     }
   }
-  var chart = new google.charts.Bar(document.getElementById('chartHistogram'));
+  var chart = new google.visualization.ColumnChart(document.getElementById('chartHistogram'));
+  google.visualization.events.addListener(chart, 'select', selectHundler);
+
+  function selectHundler() {
+    var selectedItem = chart.getSelection() [0];
+    if(selectedItem) {
+      $('<tr>' +
+          '<td>'+ transportType[selectedItem.row] + '</td>' +
+          '<td>' + transportRoute[selectedItem.row] + '</td>'+
+          '<td>' + directionStartTime[selectedItem.row] + '</td>'+
+          '<td>' + directionInterval[selectedItem.row] + '</td>' +
+        '</tr>').appendTo('#directionInf');
+
+      //alert("directionId: "+directionType[selectedItem.row])
+      //alert("Номер транспорта: " + transportRoute[selectedItem.row]);
+    }
+  }
   chart.draw(data, options);
 }
