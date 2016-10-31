@@ -19,7 +19,7 @@ function getData() {
 	function success(data) {
 
 		dataJSON = data;
-		google.charts.load('current', {packages: ['bar']});
+		google.charts.load('current', {packages: ['corechart']});
 		google.charts.setOnLoadCallback(drawBasic);
 		var msg = document.getElementById('msg');
 		msg.innerHTML = JSON.stringify(dataJSON);
