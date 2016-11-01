@@ -1,8 +1,18 @@
 * {
 	font-family: Arial, Geneva, sans-serif;
 }
+h2 {
+	font-size: 18px; color: #039; margin-top: 15px; text-align: center;
+}
+#main {
+	width: 960px; overflow: hidden;
+	margin: 0 auto;
+}
+form {
+	width: 450px; float: left;
+}
 fieldset {
-	border: 2px solid #c1c1c1; width: 40%; margin: 15px 0 0 15px; padding: 20px 10px 0 10px;
+	border: 2px solid rgba(0, 102, 153, 0.5); width: 400px; margin: 15px 0 0 15px; padding: 20px 10px 0 10px; color: #039;
 }
 legend {
 	margin: 0 auto; padding: 0 5px; font-size: 18px;
@@ -15,24 +25,49 @@ legend {
 }
 
 input, select {
-	margin-bottom: 10px;  border: 1px solid #4A4A4A; width: 200px;
+	margin-bottom: 10px;  border: 1px solid rgba(0, 102, 153, 1); width: 200px;
 }
 input[type="text"], input[type="datetime-local"] {
 	padding: 3px 5px;
 }
 input[type="text"], select {
 	 padding: 5px 5px;
-
 }
 select {
 	width: 212px;
 }
 input:focus {
 	border: 1px solid #35a5e5;
-	box-shadow: 0 0 5px rgba(81, 203, 238, 1);
-	-webkit-box-shadow: 0 0 5px rgba(81, 203, 238, 1);
-	-moz-box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+	box-shadow: 0 0 5px rgba(0, 102, 153, 1);
+	-webkit-box-shadow: 0 0 5px rgba(0, 102, 153, 1);
+	-moz-box-shadow: 0 0 5px rgba(0, 102, 153, 1);
 }
 .sendData {
-	width: 100px; height: 25px; float: right;
+	width: 160px; height: 25px; float: right;
 }
+#chartHistogram {
+	width: 500px; float: right;
+}
+#directionInf {
+
+	border: 1px solid #69c;
+	margin: 30px 0 15px 15px;
+}
+
+	th {
+		font-weight: normal;
+		color: #039;
+		border-bottom: 1px dashed #59c;
+		padding: 12px 17px;
+	}
+	td {
+		color: #669;
+		padding: 7px 17px;
+	}
+	tr:hover {
+		background-color: #69c;
+
+	}
+		tr:hover td {
+			color: #fff;
+		}
