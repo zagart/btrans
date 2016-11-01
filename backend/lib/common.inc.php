@@ -29,7 +29,7 @@ function printRealDirections(
 	int $radius,
 	int $minTime,
 	int $maxTime,
-	bool $jsonFormat
+	bool $debugPrint
 ) {
 	$core = new Core();
 	$time = time();
@@ -64,8 +64,8 @@ function printRealDirections(
 		$size = sizeof($core -> getDirections());
 		echo "<h2>$size direction(s) generated.</h2><hr/>";
 	}
-	$directionArr = $core -> getDirections();
-	usort($directionArr, function ($a, $b) {
+	$directions = $core -> getDirections();
+	usort($directions, function ($a, $b) {
 		$startTime = $a -> getStartLocation() -> getTimestamp();
 		$endTime = $b -> getStartLocation() -> getTimestamp();
 		if ($startTime < $endTime) {
@@ -76,13 +76,15 @@ function printRealDirections(
 			return 0;
 		}
 	});
-	foreach ($directionArr as $direction) {
-		if (!$jsonFormat) {
-			array_push($directionArr, $direction -> toArray());
-			printObject($direction -> toArray());
-		} else {
-			printObject($direction -> toArray());
+	$directionsArr = array();
+	foreach ($directions as $direction) {
+		$directionsArr[] = $direction -> toArray();
+	}
+	if ($debugPrint) {
+		foreach ($directions as $direction) {
+			$startTime = $direction -> getStartTime() - 1475149361;
+			echo "Start time: $startTime </br>";
 		}
 	}
-	return $directionArr;
+	return $directionsArr;
 }

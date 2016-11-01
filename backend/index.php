@@ -21,9 +21,15 @@
 			$radius = $_POST["radius"];
 			$minTime = $_POST["minTime"];
 			$maxTime = $_POST["maxTime"];
-			$jsonFormat = false;
+			$algorithm = $_POST["algorithm"];
+			if ($algorithm == "id") {
+				$algorithm = new IdAlgorithm();
+			} else if ($algorithm == "route") {
+				$algorithm = new RouteAlgorithm();
+			}
+			$debugPrint = false;
 			$json_file = json_encode(printRealDirections(SOURCE_FILE_PATH, 
-								new IdAlgorithm(),
+								$algorithm,
 								$latA, 
 								$lngA,	
 								$latB, 
@@ -31,7 +37,7 @@
 								$radius,
 								$minTime,
 								$maxTime,
-								$jsonFormat
+								$debugPrint
 			));
 			file_put_contents("data.json", $json_file);
 		}
