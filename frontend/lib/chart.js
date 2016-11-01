@@ -19,14 +19,14 @@
       directionStartTime.push(time.getHours()+":"+time.getMinutes()+":"+time.getSeconds());
       directionInterval.push(Math.floor(interval) + " мин " + val.interval % 60 + " сек");
       data.addRows([
-        [{v:[time.getHours(), 0], f:time.getHours()+":"+time.getMinutes()+":"+time.getSeconds()}, interval]
+        [{v:[time.getHours(), time.getMinutes(), time.getSeconds()], f:time.getHours()+":"+time.getMinutes()+":"+time.getSeconds()}, interval]
       ]);
     }
   });
   var options = {
     title:'График',
-    width:1300,
-    height:600,
+    width:510,
+    height:400,
     bar: {
       groupWidth:"97%"
     },
@@ -34,13 +34,11 @@
       title:'Time Of Day',
 
       viewWindow: {
-        min: [0,0,0],
-        max: [24,0,0]
+        min: [0,00,0],
+        max: [24,00,0]
       }
     },
-    vAxis: {
-      title:'Interval, min'
-    }
+
   }
   var chart = new google.visualization.ColumnChart(document.getElementById('chartHistogram'));
   google.visualization.events.addListener(chart, 'select', selectHundler);
