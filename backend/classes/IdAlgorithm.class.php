@@ -13,9 +13,12 @@ class IdAlgorithm extends Algorithm {
 				$idJ = $this -> endPointTransport[$j] -> getGpsNavigator() -> getId();
 				$timestampI = $this -> startPointTransport[$i] -> getGpsNavigator() -> getAverageLocation() -> getTimestamp();
 				$timestampJ = $this -> endPointTransport[$j] -> getGpsNavigator() -> getAverageLocation() -> getTimestamp();
+				$typeI = $this -> startPointTransport[$i] -> getType();
+				$typeJ = $this -> endPointTransport[$j] -> getType();
 				if (
 					($idI == $idJ) && ($timestampI < $timestampJ) && 
-					($timestampJ - $timestampI < TimeLimiter::HOUR)
+					($timestampJ - $timestampI < self::TRAVEL_MAX_TIME) &&
+					($typeI == $typeJ)
 				   ) {
 					$direction = new Direction(
 						$this -> startPointTransport[$i], 

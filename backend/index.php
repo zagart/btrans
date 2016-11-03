@@ -3,7 +3,6 @@
 	define("SOURCE_FILE_PATH", "ALL_routes_28h.json");
 	require_once "lib".DIRECTORY_SEPARATOR."autoloader.inc.php";
 	require_once "lib".DIRECTORY_SEPARATOR."common.inc.php";
-	require_once "lib".DIRECTORY_SEPARATOR."data.inc.php";
 ?>
 <!DOCTYPE html>
 <html>
@@ -11,7 +10,6 @@
 		<title>#dataParser</title>		
 	</head>
 	<body>
-		<h1>Data parser index.php</h1>
 		<?php 
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$latA = $_POST["latitudeA"];
@@ -28,7 +26,7 @@
 				$algorithm = new RouteAlgorithm();
 			}
 			$debugPrint = false;
-			$json_file = json_encode(printRealDirections(SOURCE_FILE_PATH, 
+			$json_result = json_encode(printRealDirections(SOURCE_FILE_PATH, 
 								$algorithm,
 								$latA, 
 								$lngA,	
@@ -39,7 +37,7 @@
 								$maxTime,
 								$debugPrint
 			));
-			file_put_contents("data.json", $json_file);
+			echo $json_result;
 		}
 		?>
 	</body>
