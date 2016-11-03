@@ -2,7 +2,8 @@
 
 abstract class Algorithm extends StrictAccessClass {
 	
-	const DELAY_TIME = 60;
+	const DELAY_TIME = TimeLimiter::MINUTE;
+	const TRAVEL_MAX_TIME = TimeLimiter::TEN_MINUTES;
 	protected $startPointTransport;
 	protected $endPointTransport;
 				
@@ -26,13 +27,10 @@ abstract class Algorithm extends StrictAccessClass {
 			$core -> getEndObject(),
 			$timeLimiter
 		);
-		echo "Start locations found: ";
-		echo sizeof($this -> startPointTransport);
-		echo ".<br/>";
-		echo "End locations found: ";
-		echo sizeof($this -> endPointTransport);
-		echo ".<br/>";
-		echo "<br/>";
+		$startCounter = sizeof($this -> startPointTransport);
+		$endCounter = sizeof($this -> endPointTransport);
+		Logger::log("Start locations found: $startCounter<br/>");
+		Logger::log("End locations found: $endCounter<br/>");
 		$this -> getIdentifiedLocations();
 		$this -> groupTransportByClassLogic($this -> startPointTransport);
 		$this -> groupTransportByClassLogic($this -> endPointTransport);

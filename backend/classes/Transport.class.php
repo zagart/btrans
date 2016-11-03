@@ -6,8 +6,8 @@ class Transport {
 	
 	private $gps = null;
 	private $id = 0;
-	private $route = ""; //n
-	private $type = 0; //c
+	private $route = "";
+	private $type = 0;
 	
 	public function __construct(string $route, int $type) {
 		$this -> route = $route;

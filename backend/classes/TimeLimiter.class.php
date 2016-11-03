@@ -3,6 +3,7 @@
 class TimeLimiter extends StrictAccessClass {
 	
 	const MINUTE = 60;
+	const TEN_MINUTES = 600;
 	const HOUR = 3600;
 	const DAY = 86400;
 	private $minTime;

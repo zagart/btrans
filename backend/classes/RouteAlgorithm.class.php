@@ -2,10 +2,6 @@
 
 class RouteAlgorithm extends Algorithm {
 	
-//	const DELAY_TIME = 180;
-//	protected $startPointTransport;
-//	protected $endPointTransport;
-	
 	protected function generateDirections() : array {
 		$directions = array();
 		if (empty($this -> startPointTransport) or empty($this -> endPointTransport)) {
@@ -13,9 +9,16 @@ class RouteAlgorithm extends Algorithm {
 		}
 		for ($i = 0; $i < sizeof($this -> startPointTransport); $i++) {
 			for ($j = 0; $j < sizeof($this -> endPointTransport); $j++) {
+				$routeI = $this -> startPointTransport[$i] -> getRoute();
+				$routeJ = $this -> endPointTransport[$j] -> getRoute();
+				$timestampI = $this -> startPointTransport[$i] -> getGpsNavigator() -> getAverageLocation() -> getTimestamp();
+				$timestampJ = $this -> endPointTransport[$j] -> getGpsNavigator() -> getAverageLocation() -> getTimestamp();
+				$typeI = $this -> startPointTransport[$i] -> getType();
+				$typeJ = $this -> endPointTransport[$j] -> getType();
 				if (
-					$this -> startPointTransport[$i] -> getRoute() ==
-					$this -> endPointTransport[$j] -> getRoute()
+					($routeI == $routeJ) && ($timestampI < $timestampJ) && 
+					($timestampJ - $timestampI < self::TRAVEL_MAX_TIME) &&
+					($typeI == $typeJ)
 				   ) {
 					$direction = new Direction(
 						$this -> startPointTransport[$i], 
@@ -27,8 +30,7 @@ class RouteAlgorithm extends Algorithm {
 					$j > 0 ? $j-- : $j;
 					$this -> startPointTransport = array_values($this -> startPointTransport);
 					$this -> endPointTransport = array_values($this -> endPointTransport);
-					$directions[] = $direction; 
-
+					$directions[] = $direction;
 				}		
 			}
 		}

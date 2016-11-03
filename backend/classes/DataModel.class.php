@@ -51,7 +51,7 @@ class DataModel extends StrictAccessClass {
 	}
 	
 	public function printModel() {
-		for ($i = 0; $i < sizeof($this -> gps); $i++) {
+		for ($i = 0; $i < sizeof($this -> transport); $i++) {
 			echo "<hr/>";
 			echo "
 			Маршрут: {$this -> transport[$i] -> getRoute()}<br/>
